@@ -9,19 +9,18 @@
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
-      --bg: #0d1117;
-      --bg2: #161b22;
-      --bg3: #21262d;
-      --green: #3fb950;
-      --green-dim: #238636;
+      --bg: #060912;
+      --bg2: #0d1117;
+      --bg3: #161b22;
+      --green: #00ff88;
+      --green-dim: #00ff8820;
       --blue: #58a6ff;
       --purple: #bc8cff;
       --orange: #f0883e;
       --red: #ff7b72;
       --text: #e6edf3;
       --text2: #8b949e;
-      --border: #30363d;
-      --cursor: #3fb950;
+      --border: #21262d;
     }
     html { scroll-behavior: smooth; }
     body {
@@ -29,22 +28,29 @@
       background: var(--bg);
       color: var(--text);
       line-height: 1.7;
+      overflow-x: hidden;
     }
-    code, .mono { font-family: 'Fira Code', monospace; }
-
-    /* scrollbar */
-    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 2px; }
+
+    /* ANIMATED BACKGROUND */
+    #bg-canvas {
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0; pointer-events: none;
+    }
+
+    nav, section, .hero, footer { position: relative; z-index: 1; }
 
     /* NAV */
     nav {
       display: flex; justify-content: space-between; align-items: center;
       padding: 1rem 2rem;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid #ffffff0f;
       position: sticky; top: 0;
-      background: rgba(13,17,23,0.92);
-      backdrop-filter: blur(8px);
+      background: rgba(6,9,18,0.85);
+      backdrop-filter: blur(12px);
       z-index: 100;
     }
     .nav-logo { font-family: 'Fira Code', monospace; font-size: 14px; color: var(--green); }
@@ -52,270 +58,286 @@
     .nav-links { display: flex; gap: 1.5rem; }
     .nav-links a {
       font-family: 'Fira Code', monospace;
-      font-size: 13px; color: var(--text2);
+      font-size: 12px; color: var(--text2);
       text-decoration: none; transition: color 0.2s;
     }
     .nav-links a:hover { color: var(--green); }
-    .nav-links a::before { content: './'; color: var(--green); }
+    .nav-links a::before { content: './'; color: var(--green); opacity: 0.5; }
 
     /* HERO */
     .hero {
-      padding: 5rem 2rem 4rem;
-      border-bottom: 1px solid var(--border);
-      max-width: 860px;
+      padding: 6rem 2rem 5rem;
+      border-bottom: 1px solid #ffffff0a;
+      max-width: 900px;
     }
     .hero-pre {
       font-family: 'Fira Code', monospace;
       font-size: 13px; color: var(--text2);
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
+      background: #ffffff05;
+      border: 1px solid #ffffff0a;
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      display: inline-block;
+      line-height: 2;
     }
-    .hero-pre .c-green { color: var(--green); }
-    .hero-pre .c-blue { color: var(--blue); }
-    .hero-pre .c-purple { color: var(--purple); }
-    .hero-pre .c-orange { color: var(--orange); }
     .hero h1 {
       font-family: 'Fira Code', monospace;
-      font-size: clamp(28px, 5vw, 48px);
+      font-size: clamp(30px, 5vw, 52px);
       font-weight: 600;
-      color: var(--text);
-      margin-bottom: 0.5rem;
-      line-height: 1.2;
+      line-height: 1.15;
+      margin-bottom: 1rem;
     }
-    .hero h1 .cursor {
-      display: inline-block;
-      width: 3px; height: 1em;
-      background: var(--cursor);
-      vertical-align: text-bottom;
+    .hero h1 .name { color: var(--green); text-shadow: 0 0 30px #00ff8855; }
+    .cursor {
+      display: inline-block; width: 3px; height: 0.85em;
+      background: var(--green); vertical-align: text-bottom;
+      margin-left: 3px;
       animation: blink 1s step-end infinite;
-      margin-left: 2px;
+      box-shadow: 0 0 8px var(--green);
     }
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-    .hero-sub {
-      font-size: 16px; color: var(--text2);
-      max-width: 500px; margin: 1rem 0 2rem;
-      line-height: 1.7;
-    }
-    .hero-sub .highlight { color: var(--blue); }
+    .hero-sub { font-size: 16px; color: var(--text2); max-width: 520px; margin-bottom: 2.5rem; }
+    .hero-sub .hl { color: var(--blue); }
     .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
     .btn-green {
-      font-family: 'Fira Code', monospace;
-      font-size: 13px; padding: 8px 20px;
+      font-family: 'Fira Code', monospace; font-size: 13px;
+      padding: 10px 22px;
       background: var(--green-dim);
       border: 1px solid var(--green);
       color: var(--green); border-radius: 6px;
       cursor: pointer; text-decoration: none;
-      transition: background 0.2s;
+      transition: all 0.2s;
+      box-shadow: 0 0 15px #00ff8815;
     }
-    .btn-green:hover { background: #2ea043; color: #fff; }
+    .btn-green:hover { background: #00ff8830; box-shadow: 0 0 25px #00ff8835; }
     .btn-ghost {
-      font-family: 'Fira Code', monospace;
-      font-size: 13px; padding: 8px 20px;
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--text2); border-radius: 6px;
-      cursor: pointer; text-decoration: none;
-      transition: border-color 0.2s, color 0.2s;
+      font-family: 'Fira Code', monospace; font-size: 13px;
+      padding: 10px 22px; background: transparent;
+      border: 1px solid #ffffff18; color: var(--text2);
+      border-radius: 6px; cursor: pointer; text-decoration: none;
+      transition: all 0.2s;
     }
     .btn-ghost:hover { border-color: var(--text2); color: var(--text); }
 
     /* SECTIONS */
-    section { padding: 3.5rem 2rem; border-bottom: 1px solid var(--border); }
+    section {
+      padding: 4rem 2rem;
+      border-bottom: 1px solid #ffffff08;
+    }
     .section-tag {
       font-family: 'Fira Code', monospace;
-      font-size: 12px; color: var(--green);
-      margin-bottom: 0.5rem;
+      font-size: 11px; color: var(--green);
+      opacity: 0.7; margin-bottom: 0.4rem;
+      letter-spacing: 1px;
     }
-    .section-title {
-      font-size: 20px; font-weight: 500;
-      color: var(--text); margin-bottom: 2rem;
+    .section-title { font-size: 22px; font-weight: 500; margin-bottom: 2rem; }
+
+    /* 3D CARD BASE */
+    .card-3d {
+      perspective: 1000px;
+    }
+    .card-3d-inner {
+      transition: transform 0.15s ease;
+      transform-style: preserve-3d;
     }
 
     /* SKILLS */
-    .skills-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+    .skills-grid { display: flex; flex-wrap: wrap; gap: 10px; }
     .skill {
       font-family: 'Fira Code', monospace;
-      font-size: 12px; padding: 4px 12px;
-      border-radius: 20px; border: 1px solid;
+      font-size: 12px; padding: 6px 14px;
+      border-radius: 6px; border: 1px solid;
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: default;
     }
-    .skill.js { color: #f0db4f; border-color: #f0db4f22; background: #f0db4f0d; }
-    .skill.ts { color: var(--blue); border-color: #58a6ff22; background: #58a6ff0d; }
-    .skill.react { color: #61dafb; border-color: #61dafb22; background: #61dafb0d; }
-    .skill.node { color: var(--green); border-color: #3fb95022; background: #3fb9500d; }
-    .skill.python { color: var(--orange); border-color: #f0883e22; background: #f0883e0d; }
-    .skill.other { color: var(--purple); border-color: #bc8cff22; background: #bc8cff0d; }
+    .skill:hover { transform: translateY(-3px) scale(1.05); }
+    .skill.js  { color: #f0db4f; border-color: #f0db4f25; background: #f0db4f08; }
+    .skill.js:hover { box-shadow: 0 4px 20px #f0db4f20; }
+    .skill.ts  { color: var(--blue); border-color: #58a6ff25; background: #58a6ff08; }
+    .skill.ts:hover { box-shadow: 0 4px 20px #58a6ff20; }
+    .skill.react { color: #61dafb; border-color: #61dafb25; background: #61dafb08; }
+    .skill.react:hover { box-shadow: 0 4px 20px #61dafb20; }
+    .skill.node { color: var(--green); border-color: #00ff8825; background: #00ff8808; }
+    .skill.node:hover { box-shadow: 0 4px 20px #00ff8820; }
+    .skill.python { color: var(--orange); border-color: #f0883e25; background: #f0883e08; }
+    .skill.python:hover { box-shadow: 0 4px 20px #f0883e20; }
+    .skill.other { color: var(--purple); border-color: #bc8cff25; background: #bc8cff08; }
+    .skill.other:hover { box-shadow: 0 4px 20px #bc8cff20; }
 
     /* PROJECTS */
     .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
     .project-card {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 8px; padding: 1.25rem;
-      transition: border-color 0.2s, transform 0.2s;
+      background: #0d111799;
+      border: 1px solid #ffffff0f;
+      border-radius: 12px; padding: 1.5rem;
+      cursor: pointer;
+      transition: border-color 0.3s, box-shadow 0.3s;
       position: relative; overflow: hidden;
     }
-    .project-card::before {
+    .project-card::after {
       content: '';
-      position: absolute; top: 0; left: 0; right: 0;
-      height: 2px; background: var(--green);
-      transform: scaleX(0); transform-origin: left;
-      transition: transform 0.3s;
+      position: absolute; inset: 0;
+      background: radial-gradient(circle at var(--mx,50%) var(--my,50%), #00ff8808 0%, transparent 60%);
+      opacity: 0; transition: opacity 0.3s;
+      pointer-events: none;
     }
-    .project-card:hover { border-color: var(--green); transform: translateY(-2px); }
-    .project-card:hover::before { transform: scaleX(1); }
-    .project-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
-    .project-icon { font-size: 16px; }
+    .project-card:hover { border-color: #00ff8840; box-shadow: 0 8px 40px #00ff8810; }
+    .project-card:hover::after { opacity: 1; }
+    .project-top { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .project-emoji { font-size: 22px; }
     .project-name {
       font-family: 'Fira Code', monospace;
       font-size: 14px; font-weight: 500; color: var(--blue);
     }
-    .project-desc { font-size: 13px; color: var(--text2); line-height: 1.6; margin-bottom: 14px; }
+    .project-desc { font-size: 13px; color: var(--text2); line-height: 1.65; margin-bottom: 14px; }
     .project-tags { display: flex; gap: 6px; flex-wrap: wrap; }
     .project-tag {
-      font-family: 'Fira Code', monospace;
-      font-size: 11px; padding: 2px 8px;
-      background: var(--bg3); color: var(--text2);
-      border-radius: 4px; border: 1px solid var(--border);
+      font-family: 'Fira Code', monospace; font-size: 11px;
+      padding: 2px 8px; background: #ffffff08;
+      color: var(--text2); border-radius: 4px;
+      border: 1px solid #ffffff10;
     }
 
     /* EXPERIENCE */
-    .exp-list { display: flex; flex-direction: column; gap: 0; }
+    .exp-list { display: flex; flex-direction: column; }
     .exp-item {
       display: grid; grid-template-columns: 110px 1fr;
-      gap: 1rem; padding: 1rem 0;
-      border-bottom: 1px solid var(--border);
+      gap: 1rem; padding: 1.1rem 0;
+      border-bottom: 1px solid #ffffff08;
+      transition: padding-left 0.2s;
     }
+    .exp-item:hover { padding-left: 8px; }
     .exp-item:last-child { border-bottom: none; }
-    .exp-year {
-      font-family: 'Fira Code', monospace;
-      font-size: 12px; color: var(--text2); padding-top: 3px;
-    }
-    .exp-role { font-size: 14px; font-weight: 500; color: var(--text); }
-    .exp-company { font-size: 13px; color: var(--green); font-family: 'Fira Code', monospace; }
+    .exp-year { font-family: 'Fira Code', monospace; font-size: 11px; color: var(--text2); padding-top: 3px; }
+    .exp-role { font-size: 14px; font-weight: 500; }
+    .exp-company { font-family: 'Fira Code', monospace; font-size: 12px; color: var(--green); margin-top: 2px; }
 
     /* CONTACT */
     .contact-code {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 8px; padding: 1.5rem;
-      font-family: 'Fira Code', monospace;
-      font-size: 13px; line-height: 2;
-      margin-bottom: 1.5rem;
+      background: #0d111799; border: 1px solid #ffffff0f;
+      border-radius: 10px; padding: 1.5rem;
+      font-family: 'Fira Code', monospace; font-size: 13px;
+      line-height: 2.1; margin-bottom: 1.5rem;
     }
-    .c-purple { color: var(--purple); }
-    .c-blue { color: var(--blue); }
-    .c-green { color: var(--green); }
-    .c-orange { color: var(--orange); }
-    .c-text2 { color: var(--text2); }
+    .c-p { color: var(--purple); }
+    .c-b { color: var(--blue); }
+    .c-g { color: var(--green); }
+    .c-o { color: var(--orange); }
+    .c-d { color: var(--text2); }
     .contact-links { display: flex; gap: 10px; flex-wrap: wrap; }
     .contact-link {
       display: flex; align-items: center; gap: 8px;
-      font-family: 'Fira Code', monospace;
-      font-size: 13px; padding: 8px 16px;
-      background: var(--bg2); border: 1px solid var(--border);
-      border-radius: 6px; color: var(--text2);
-      text-decoration: none; transition: border-color 0.2s, color 0.2s;
+      font-family: 'Fira Code', monospace; font-size: 13px;
+      padding: 9px 18px;
+      background: #ffffff05; border: 1px solid #ffffff12;
+      border-radius: 8px; color: var(--text2);
+      text-decoration: none;
+      transition: all 0.2s;
     }
-    .contact-link:hover { border-color: var(--green); color: var(--green); }
+    .contact-link:hover { border-color: var(--green); color: var(--green); background: #00ff8808; box-shadow: 0 0 15px #00ff8810; }
 
-    /* FOOTER */
     footer {
-      padding: 1.5rem 2rem;
-      font-family: 'Fira Code', monospace;
-      font-size: 12px; color: var(--text2);
-      text-align: center;
+      position: relative; z-index: 1;
+      padding: 1.5rem 2rem; text-align: center;
+      font-family: 'Fira Code', monospace; font-size: 12px; color: var(--text2);
     }
-    footer span { color: var(--red); }
+    footer .heart { color: var(--red); }
+    footer .name { color: var(--green); }
 
     @media (max-width: 600px) {
       nav { padding: 0.75rem 1rem; }
       .nav-links { gap: 0.75rem; }
-      .hero { padding: 3rem 1rem 2.5rem; }
+      .hero { padding: 3.5rem 1rem 3rem; }
       section { padding: 2.5rem 1rem; }
-      .exp-item { grid-template-columns: 1fr; gap: 4px; }
+      .exp-item { grid-template-columns: 1fr; gap: 2px; }
     }
   </style>
 </head>
 <body>
+
+<canvas id="bg-canvas"></canvas>
 
 <nav>
   <div class="nav-logo"><span>~/</span>gia-portfolio</div>
   <div class="nav-links">
     <a href="#about">about</a>
     <a href="#projects">projects</a>
-    <a href="#experience">experience</a>
+    <a href="#experience">exp</a>
     <a href="#contact">contact</a>
   </div>
 </nav>
 
 <div class="hero" id="about">
   <div class="hero-pre">
-    <span class="c-purple">const</span> <span class="c-blue">developer</span> <span class="c-text2">=</span> {<br>
-    &nbsp;&nbsp;name: <span class="c-orange">"გია მამულაშვილი"</span>,<br>
-    &nbsp;&nbsp;role: <span class="c-orange">"Full-stack Developer"</span>,<br>
-    &nbsp;&nbsp;location: <span class="c-orange">"Tbilisi, Georgia 🇬🇪"</span><br>
+    <span style="color:var(--purple)">const</span> <span style="color:var(--blue)">developer</span> <span style="color:var(--text2)">=</span> {<br>
+    &nbsp;&nbsp;name: <span style="color:var(--orange)">"გია მამულაშვილი"</span>,<br>
+    &nbsp;&nbsp;role: <span style="color:var(--orange)">"Full-stack Developer"</span>,<br>
+    &nbsp;&nbsp;location: <span style="color:var(--orange)">"Tbilisi, Georgia 🇬🇪"</span><br>
     }
   </div>
-  <h1>გამარჯობა, მე ვარ გია<span class="cursor"></span></h1>
-  <p class="hero-sub">ვქმნი <span class="highlight">სწრაფ</span> და <span class="highlight">გამოყენებად</span> ვებ-აპლიკაციებს. კოდი — ჩემი ენა.</p>
+  <h1>გამარჯობა,<br>მე ვარ <span class="name">გია</span><span class="cursor"></span></h1>
+  <p class="hero-sub">ვქმნი <span class="hl">სწრაფ</span> და <span class="hl">გამოყენებად</span> ვებ-აპლიკაციებს. კოდი — ჩემი ენა.</p>
   <div class="hero-btns">
-    <a href="#projects" class="btn-green">$ ls projects/</a>
-    <a href="#contact" class="btn-ghost">$ git contact</a>
+    <a href="#projects" class="btn-green">$ ls ./projects</a>
+    <a href="#contact" class="btn-ghost">$ git contact --open</a>
   </div>
 </div>
 
 <section id="skills">
-  <div class="section-tag">// skills</div>
+  <div class="section-tag">// tech_stack</div>
   <div class="section-title">ტექნოლოგიები</div>
   <div class="skills-grid">
-    <span class="skill js">JavaScript</span>
-    <span class="skill ts">TypeScript</span>
-    <span class="skill react">React</span>
-    <span class="skill react">Next.js</span>
-    <span class="skill node">Node.js</span>
-    <span class="skill python">Python</span>
-    <span class="skill python">FastAPI</span>
-    <span class="skill other">PostgreSQL</span>
-    <span class="skill other">Docker</span>
-    <span class="skill other">Git</span>
-    <span class="skill other">AWS</span>
-    <span class="skill ts">Tailwind CSS</span>
+    <span class="skill js">⚡ JavaScript</span>
+    <span class="skill ts">🔷 TypeScript</span>
+    <span class="skill react">⚛️ React</span>
+    <span class="skill react">▲ Next.js</span>
+    <span class="skill node">🟢 Node.js</span>
+    <span class="skill python">🐍 Python</span>
+    <span class="skill python">🚀 FastAPI</span>
+    <span class="skill other">🐘 PostgreSQL</span>
+    <span class="skill other">🐳 Docker</span>
+    <span class="skill other">☁️ AWS</span>
+    <span class="skill other">🔀 Git</span>
+    <span class="skill ts">🎨 Tailwind</span>
   </div>
 </section>
 
 <section id="projects">
-  <div class="section-tag">// projects</div>
+  <div class="section-tag">// featured_projects</div>
   <div class="section-title">პროექტები</div>
   <div class="projects-grid">
-    <div class="project-card">
-      <div class="project-header">
-        <span class="project-icon">🛒</span>
+    <div class="project-card" onmousemove="tilt(event,this)" onmouseleave="resetTilt(this)">
+      <div class="project-top">
+        <span class="project-emoji">🛒</span>
         <span class="project-name">e-commerce-platform</span>
       </div>
-      <p class="project-desc">სრული ონლაინ მაღაზია გადახდის სისტემით, ადმინ პანელით და ანალიტიკით.</p>
+      <p class="project-desc">სრული ონლაინ მაღაზია გადახდის სისტემით, ადმინ პანელით და real-time ანალიტიკით.</p>
       <div class="project-tags">
         <span class="project-tag">React</span>
         <span class="project-tag">Node.js</span>
         <span class="project-tag">Stripe</span>
+        <span class="project-tag">MongoDB</span>
       </div>
     </div>
-    <div class="project-card">
-      <div class="project-header">
-        <span class="project-icon">💬</span>
+    <div class="project-card" onmousemove="tilt(event,this)" onmouseleave="resetTilt(this)">
+      <div class="project-top">
+        <span class="project-emoji">💬</span>
         <span class="project-name">realtime-chat</span>
       </div>
-      <p class="project-desc">WebSocket-ზე დაფუძნებული ჩატი ჯგუფური ოთახებით და ფაილების გაზიარებით.</p>
+      <p class="project-desc">WebSocket-ზე დაფუძნებული ჩატი ჯგუფური ოთახებით, ფაილების გაზიარებით და end-to-end encryption-ით.</p>
       <div class="project-tags">
         <span class="project-tag">Next.js</span>
         <span class="project-tag">Socket.io</span>
         <span class="project-tag">Redis</span>
       </div>
     </div>
-    <div class="project-card">
-      <div class="project-header">
-        <span class="project-icon">📊</span>
+    <div class="project-card" onmousemove="tilt(event,this)" onmouseleave="resetTilt(this)">
+      <div class="project-top">
+        <span class="project-emoji">📊</span>
         <span class="project-name">analytics-dashboard</span>
       </div>
-      <p class="project-desc">მონაცემების ვიზუალიზაციის პანელი, ინტეგრირებული გარე API-სთან.</p>
+      <p class="project-desc">მონაცემების ვიზუალიზაციის პანელი, ინტეგრირებული გარე API-სთან და AI-ზე დაფუძნებული პროგნოზებით.</p>
       <div class="project-tags">
         <span class="project-tag">Python</span>
         <span class="project-tag">FastAPI</span>
@@ -326,41 +348,42 @@
 </section>
 
 <section id="experience">
-  <div class="section-tag">// experience</div>
+  <div class="section-tag">// work_experience</div>
   <div class="section-title">გამოცდილება</div>
   <div class="exp-list">
     <div class="exp-item">
       <div class="exp-year">2023 → now</div>
       <div>
         <div class="exp-role">Senior Frontend Developer</div>
-        <div class="exp-company">TechStartup Georgia</div>
+        <div class="exp-company">~/TechStartup Georgia</div>
       </div>
     </div>
     <div class="exp-item">
       <div class="exp-year">2021 → 2023</div>
       <div>
         <div class="exp-role">Full-stack Developer</div>
-        <div class="exp-company">Digital Agency Tbilisi</div>
+        <div class="exp-company">~/Digital Agency Tbilisi</div>
       </div>
     </div>
     <div class="exp-item">
       <div class="exp-year">2019 → 2021</div>
       <div>
         <div class="exp-role">Junior Developer</div>
-        <div class="exp-company">Freelance</div>
+        <div class="exp-company">~/Freelance</div>
       </div>
     </div>
   </div>
 </section>
 
 <section id="contact">
-  <div class="section-tag">// contact</div>
+  <div class="section-tag">// get_in_touch</div>
   <div class="section-title">დაკავშირება</div>
   <div class="contact-code">
-    <span class="c-purple">const</span> <span class="c-blue">contact</span> <span class="c-text2">=</span> {<br>
-    &nbsp;&nbsp;email: <span class="c-green">"gia@example.com"</span>,<br>
-    &nbsp;&nbsp;github: <span class="c-green">"github.com/geoshavi"</span>,<br>
-    &nbsp;&nbsp;status: <span class="c-green">"open to work ✅"</span><br>
+    <span class="c-p">const</span> <span class="c-b">contact</span> <span class="c-d">=</span> {<br>
+    &nbsp;&nbsp;email: <span class="c-g">"gia@example.com"</span>,<br>
+    &nbsp;&nbsp;github: <span class="c-g">"github.com/geoshavi"</span>,<br>
+    &nbsp;&nbsp;status: <span class="c-g">"✅ open to work"</span>,<br>
+    &nbsp;&nbsp;response_time: <span class="c-o">"&lt; 24h"</span><br>
     }
   </div>
   <div class="contact-links">
@@ -371,8 +394,131 @@
 </section>
 
 <footer>
-  made with <span>♥</span> by gia // <span style="color:#3fb950">geoshavi</span>
+  made with <span class="heart">♥</span> &amp; ☕ by <span class="name">geoshavi</span> // 2025
 </footer>
 
+<script>
+// ANIMATED PARTICLE BACKGROUND
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+let W, H, particles = [], mouse = {x: -999, y: -999};
+
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+window.addEventListener('mousemove', e => {
+  mouse.x = e.clientX;
+  mouse.y = e.clientY;
+});
+
+// Create particles
+for (let i = 0; i < 80; i++) {
+  particles.push({
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    vx: (Math.random() - 0.5) * 0.3,
+    vy: (Math.random() - 0.5) * 0.3,
+    r: Math.random() * 1.5 + 0.3,
+    alpha: Math.random() * 0.4 + 0.1,
+    color: Math.random() > 0.7 ? '#00ff88' : Math.random() > 0.5 ? '#58a6ff' : '#bc8cff'
+  });
+}
+
+function drawFrame() {
+  ctx.clearRect(0, 0, W, H);
+
+  // Grid lines
+  ctx.strokeStyle = '#ffffff04';
+  ctx.lineWidth = 1;
+  const gridSize = 60;
+  for (let x = 0; x < W; x += gridSize) {
+    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+  }
+  for (let y = 0; y < H; y += gridSize) {
+    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+  }
+
+  // Particles
+  particles.forEach(p => {
+    p.x += p.vx; p.y += p.vy;
+    if (p.x < 0) p.x = W;
+    if (p.x > W) p.x = 0;
+    if (p.y < 0) p.y = H;
+    if (p.y > H) p.y = 0;
+
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = p.color + Math.floor(p.alpha * 255).toString(16).padStart(2,'0');
+    ctx.fill();
+  });
+
+  // Connect nearby particles
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if (dist < 100) {
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.strokeStyle = `rgba(0,255,136,${0.06 * (1 - dist/100)})`;
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+      }
+    }
+  }
+
+  // Mouse glow
+  const grad = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 150);
+  grad.addColorStop(0, 'rgba(0,255,136,0.04)');
+  grad.addColorStop(1, 'transparent');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, W, H);
+
+  requestAnimationFrame(drawFrame);
+}
+drawFrame();
+
+// 3D TILT on project cards
+function tilt(e, card) {
+  const rect = card.getBoundingClientRect();
+  const cx = rect.left + rect.width / 2;
+  const cy = rect.top + rect.height / 2;
+  const dx = (e.clientX - cx) / (rect.width / 2);
+  const dy = (e.clientY - cy) / (rect.height / 2);
+  card.style.transform = `perspective(600px) rotateY(${dx * 8}deg) rotateX(${-dy * 8}deg) translateZ(10px)`;
+  card.style.transition = 'transform 0.05s';
+  const mx = ((e.clientX - rect.left) / rect.width * 100).toFixed(1);
+  const my = ((e.clientY - rect.top) / rect.height * 100).toFixed(1);
+  card.style.setProperty('--mx', mx + '%');
+  card.style.setProperty('--my', my + '%');
+}
+function resetTilt(card) {
+  card.style.transform = 'perspective(600px) rotateY(0deg) rotateX(0deg) translateZ(0)';
+  card.style.transition = 'transform 0.4s ease';
+}
+
+// Scroll reveal
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('section, .hero').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(24px)';
+  el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  observer.observe(el);
+});
+</script>
 </body>
 </html>
