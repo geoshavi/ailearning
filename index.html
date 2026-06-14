@@ -2,89 +2,77 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>MAGIC GAMING WORLD</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEON GAMING STORE</title>
 
 <style>
 body{
     margin:0;
-    overflow:hidden;
     font-family:Arial;
-    background:black;
     color:white;
+    overflow-x:hidden;
+    background:black;
 }
 
-/* 🌌 MOVING BACKGROUND */
+/* 🌌 ANIMATED BACKGROUND */
 .bg{
     position:fixed;
     width:100%;
     height:100%;
-    background:linear-gradient(120deg,#0f0c29,#302b63,#ff00cc,#00f7ff);
+    background:linear-gradient(120deg,#0f0c29,#302b63,#ff00cc,#00f7ff,#0f0c29);
     background-size:400% 400%;
-    animation:moveBG 8s infinite alternate;
-    z-index:-3;
-    filter:blur(20px);
+    animation:bg 10s infinite alternate;
+    z-index:-2;
+    filter:blur(30px);
 }
 
-@keyframes moveBG{
+@keyframes bg{
     0%{background-position:0% 50%;}
     100%{background-position:100% 50%;}
-}
-
-/* ✨ PARTICLES */
-canvas{
-    position:fixed;
-    top:0;
-    left:0;
-    z-index:-2;
 }
 
 /* 🎮 HEADER */
 header{
     text-align:center;
-    font-size:40px;
     padding:20px;
+    font-size:40px;
     color:#00f7ff;
     text-shadow:0 0 20px #00f7ff;
 }
 
-/* 🎯 JOYSTICK MENU */
-.joystick{
-    position:absolute;
-    bottom:40px;
-    left:50%;
-    transform:translateX(-50%);
-    width:180px;
-    height:180px;
-    border-radius:50%;
-    background:rgba(255,255,255,0.05);
-    border:2px solid #00f7ff;
+/* 🧭 MENU */
+nav{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
+    margin-bottom:20px;
+}
+
+nav a{
+    text-decoration:none;
+    color:white;
+    padding:10px 20px;
+    border:1px solid #00f7ff;
+    border-radius:20px;
+    transition:0.3s;
+}
+
+nav a:hover{
+    background:#00f7ff;
+    color:black;
     box-shadow:0 0 20px #00f7ff;
 }
 
-.stick{
-    width:60px;
-    height:60px;
-    background:#ff00cc;
-    border-radius:50%;
-    position:absolute;
-    top:60px;
-    left:60px;
-    box-shadow:0 0 20px #ff00cc;
-    transition:0.2s;
-}
-
-/* 📦 SECTIONS */
+/* 📦 CATEGORIES */
 .container{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    margin-top:80px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
     gap:20px;
+    padding:30px;
 }
 
-.box{
-    width:220px;
+.card{
     height:150px;
     background:rgba(255,255,255,0.05);
     border:1px solid #00f7ff;
@@ -98,21 +86,44 @@ header{
     cursor:pointer;
 }
 
-.box:hover{
-    transform:scale(1.2) rotateY(20deg);
+.card:hover{
+    transform:scale(1.1) rotateY(10deg);
     box-shadow:0 0 30px #ff00cc;
 }
 
-/* 🧚 MAGIC CURSOR */
-.cursor{
-    width:20px;
-    height:20px;
-    border-radius:50%;
-    background:#00f7ff;
+/* 🎮 JOYSTICK DESIGN */
+.joystick{
     position:fixed;
-    pointer-events:none;
+    bottom:20px;
+    right:20px;
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    background:rgba(255,255,255,0.05);
+    border:2px solid #00f7ff;
     box-shadow:0 0 20px #00f7ff;
-    transform:translate(-50%,-50%);
+}
+
+.stick{
+    width:40px;
+    height:40px;
+    background:#ff00cc;
+    border-radius:50%;
+    position:absolute;
+    top:40px;
+    left:40px;
+    box-shadow:0 0 20px #ff00cc;
+}
+
+/* ✨ FLOATING DOTS */
+.dot{
+    position:fixed;
+    width:6px;
+    height:6px;
+    background:#00f7ff;
+    border-radius:50%;
+    pointer-events:none;
+    box-shadow:0 0 10px #00f7ff;
 }
 
 </style>
@@ -121,84 +132,45 @@ header{
 <body>
 
 <div class="bg"></div>
-<canvas id="particles"></canvas>
 
-<header>🔥 MAGIC GAMING WORLD 🔥</header>
+<header>🔥 NEON GAMING STORE 🔥</header>
+
+<nav>
+<a href="#">Home</a>
+<a href="#">Games</a>
+<a href="#">Action</a>
+<a href="#">Racing</a>
+<a href="#">RPG</a>
+<a href="#">Settings</a>
+</nav>
 
 <div class="container">
-<div class="box">🎮 Games</div>
-<div class="box">⚔ RPG</div>
-<div class="box">🚗 Racing</div>
-<div class="box">🌌 Cyber World</div>
-<div class="box">🧙 Magic Mode</div>
-<div class="box">🕹 Multiplayer</div>
+<div class="card">🎮 Action Games</div>
+<div class="card">🚗 Racing Games</div>
+<div class="card">⚔ RPG Worlds</div>
+<div class="card">🔫 Shooter Zone</div>
+<div class="card">🌌 Cyberpunk</div>
+<div class="card">🧙 Fantasy</div>
+<div class="card">🕹 Multiplayer</div>
+<div class="card">🎧 Music Games</div>
 </div>
 
 <!-- JOYSTICK -->
 <div class="joystick">
-<div class="stick" id="stick"></div>
+<div class="stick"></div>
 </div>
-
-<!-- CURSOR -->
-<div class="cursor" id="cursor"></div>
 
 <script>
 
-/* 🌌 PARTICLES */
-const canvas=document.getElementById("particles");
-const ctx=canvas.getContext("2d");
-
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-
-let p=[];
-
-for(let i=0;i<60;i++){
-    p.push({
-        x:Math.random()*canvas.width,
-        y:Math.random()*canvas.height,
-        r:Math.random()*3,
-        dx:(Math.random()-0.5)*2,
-        dy:(Math.random()-0.5)*2
-    });
-}
-
-function draw(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    ctx.fillStyle="#00f7ff";
-
-    p.forEach(e=>{
-        ctx.beginPath();
-        ctx.arc(e.x,e.y,e.r,0,Math.PI*2);
-        ctx.fill();
-
-        e.x+=e.dx;
-        e.y+=e.dy;
-
-        if(e.x<0||e.x>canvas.width) e.dx*=-1;
-        if(e.y<0||e.y>canvas.height) e.dy*=-1;
-    });
-
-    requestAnimationFrame(draw);
-}
-draw();
-
-/* 🧚 MAGIC CURSOR */
-const cursor=document.getElementById("cursor");
-
+/* ✨ MOUSE MAGIC DOTS */
 document.addEventListener("mousemove",(e)=>{
-    cursor.style.left=e.clientX+"px";
-    cursor.style.top=e.clientY+"px";
-});
+    let d=document.createElement("div");
+    d.className="dot";
+    d.style.left=e.pageX+"px";
+    d.style.top=e.pageY+"px";
+    document.body.appendChild(d);
 
-/* 🎮 SIMPLE JOYSTICK MOVE */
-const stick=document.getElementById("stick");
-
-document.addEventListener("mousemove",(e)=>{
-    let x=(e.clientX/window.innerWidth-0.5)*40;
-    let y=(e.clientY/window.innerHeight-0.5)*40;
-
-    stick.style.transform=`translate(${x}px,${y}px)`;
+    setTimeout(()=>d.remove(),400);
 });
 
 </script>
