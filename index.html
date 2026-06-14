@@ -14,12 +14,12 @@ body{
     overflow-x:hidden;
 }
 
-/* 🌊 ANIMATED BACKGROUND */
+/* 🌊 BACKGROUND */
 .bg{
     position:fixed;
     width:100%;
     height:100%;
-    background:linear-gradient(120deg,#2b0000,#5c0000,#0b0b0f,#8b0000);
+    background:linear-gradient(120deg,#2b0000,#5c0000,#0b0b0f,#8b0000,#0b0b0f);
     background-size:400% 400%;
     animation:bg 10s infinite alternate;
     filter:blur(30px);
@@ -31,7 +31,7 @@ body{
     100%{background-position:100% 50%;}
 }
 
-/* 🇬🇪 HEADER */
+/* HEADER */
 header{
     text-align:center;
     padding:25px;
@@ -40,15 +40,14 @@ header{
     text-shadow:0 0 20px #ff0000;
 }
 
-/* 🧿 ORNAMENT LINE */
+/* ORNAMENT */
 .ornament{
     text-align:center;
-    font-size:20px;
     color:#ffcc00;
-    margin-bottom:20px;
+    margin-bottom:15px;
 }
 
-/* 🧭 NAV */
+/* NAV */
 nav{
     display:flex;
     justify-content:center;
@@ -60,7 +59,7 @@ nav{
 nav a{
     text-decoration:none;
     color:white;
-    padding:10px 18px;
+    padding:10px 15px;
     border:1px solid #ffcc00;
     border-radius:20px;
     transition:0.3s;
@@ -69,10 +68,32 @@ nav a{
 nav a:hover{
     background:#ffcc00;
     color:black;
-    box-shadow:0 0 15px #ffcc00;
 }
 
-/* 📰 NEWS GRID */
+/* FORM */
+.form{
+    text-align:center;
+    margin:20px;
+}
+
+input{
+    padding:10px;
+    margin:5px;
+    border-radius:10px;
+    border:none;
+    outline:none;
+}
+
+button{
+    padding:10px 20px;
+    background:#ffcc00;
+    border:none;
+    cursor:pointer;
+    border-radius:10px;
+    font-weight:bold;
+}
+
+/* NEWS */
 .container{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
@@ -84,43 +105,31 @@ nav a:hover{
     background:rgba(255,255,255,0.05);
     border:1px solid #ffcc00;
     border-radius:15px;
-    overflow:hidden;
-    transition:0.4s;
-    box-shadow:0 0 10px rgba(255,204,0,0.3);
+    padding:15px;
+    transition:0.3s;
 }
 
 .card:hover{
     transform:scale(1.05);
-    box-shadow:0 0 25px #ffcc00;
-}
-
-.card img{
-    width:100%;
-    height:160px;
-    object-fit:cover;
+    box-shadow:0 0 20px #ffcc00;
 }
 
 .card h3{
-    padding:10px;
     color:#ffcc00;
 }
 
-.card p{
-    padding:0 10px 15px;
-    color:#ddd;
-}
-
-/* ✨ MOUSE EFFECT */
+/* MOUSE */
 .dot{
     position:fixed;
-    width:8px;
-    height:8px;
+    width:7px;
+    height:7px;
     background:#ffcc00;
     border-radius:50%;
     pointer-events:none;
-    box-shadow:0 0 10px #ff0000;
+    box-shadow:0 0 10px red;
 }
 
+/* FOOTER */
 footer{
     text-align:center;
     padding:20px;
@@ -137,40 +146,39 @@ footer{
 <div class="bg"></div>
 
 <header>📰 KHATIA NEWS</header>
-<div class="ornament">❖ ❖ ❖ ქართული საინფორმაციო სააგენტო ❖ ❖ ❖</div>
+<div class="ornament">❖ ქართული საინფორმაციო სააგენტო ❖</div>
 
 <nav>
 <a href="#">მთავარი</a>
 <a href="#">პოლიტიკა</a>
 <a href="#">სპორტი</a>
-<a href="#">ეკონომიკა</a>
 <a href="#">კულტურა</a>
+<a href="#">ეკონომიკა</a>
 </nav>
 
-<div class="container">
+<!-- FORM -->
+<div class="form">
+<input id="title" placeholder="სათაური">
+<input id="text" placeholder="ტექსტი">
+<button onclick="addPost()">დამატება</button>
+</div>
+
+<!-- NEWS -->
+<div id="posts" class="container">
 
 <div class="card">
-<img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c">
-<h3>ახალი ამბები თბილისში</h3>
-<p>ქალაქში ინფრასტრუქტურული პროექტები აქტიურად მიმდინარეობს...</p>
+<h3>თბილისში ახალი პროექტები</h3>
+<p>ქალაქში ინფრასტრუქტურა აქტიურად ვითარდება...</p>
 </div>
 
 <div class="card">
-<img src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620">
 <h3>სპორტი</h3>
-<p>საქართველოს ნაკრები ახალ მატჩს ემზადება...</p>
+<p>საქართველოს ნაკრები მზადაა ახალი მატჩისთვის...</p>
 </div>
 
 <div class="card">
-<img src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a">
 <h3>ეკონომიკა</h3>
-<p>ლარი სტაბილურობას ინარჩუნებს ბაზარზე...</p>
-</div>
-
-<div class="card">
-<img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d">
-<h3>კულტურა</h3>
-<p>ახალი ქართული ფესტივალი გაიმართა ბათუმში...</p>
+<p>ბაზარზე ლარი სტაბილურობას ინარჩუნებს...</p>
 </div>
 
 </div>
@@ -181,7 +189,31 @@ footer{
 
 <script>
 
-/* ✨ MOUSE MAGIC */
+/* ➕ ADD POST */
+function addPost(){
+    let title=document.getElementById("title").value;
+    let text=document.getElementById("text").value;
+
+    if(title=="" || text==""){
+        alert("შეავსე ორივე ველი!");
+        return;
+    }
+
+    let div=document.createElement("div");
+    div.className="card";
+
+    div.innerHTML=`
+        <h3>${title}</h3>
+        <p>${text}</p>
+    `;
+
+    document.getElementById("posts").appendChild(div);
+
+    document.getElementById("title").value="";
+    document.getElementById("text").value="";
+}
+
+/* ✨ MOUSE EFFECT */
 document.addEventListener("mousemove",(e)=>{
     let d=document.createElement("div");
     d.className="dot";
