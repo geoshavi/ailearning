@@ -1,29 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ka">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NEON GAMING STORE</title>
+<title>Khatia News</title>
 
 <style>
 body{
     margin:0;
     font-family:Arial;
+    background:#0b0b0f;
     color:white;
     overflow-x:hidden;
-    background:black;
 }
 
-/* 🌌 ANIMATED BACKGROUND */
+/* 🌊 ANIMATED BACKGROUND */
 .bg{
     position:fixed;
     width:100%;
     height:100%;
-    background:linear-gradient(120deg,#0f0c29,#302b63,#ff00cc,#00f7ff,#0f0c29);
+    background:linear-gradient(120deg,#2b0000,#5c0000,#0b0b0f,#8b0000);
     background-size:400% 400%;
     animation:bg 10s infinite alternate;
-    z-index:-2;
     filter:blur(30px);
+    z-index:-2;
 }
 
 @keyframes bg{
@@ -31,20 +31,28 @@ body{
     100%{background-position:100% 50%;}
 }
 
-/* 🎮 HEADER */
+/* 🇬🇪 HEADER */
 header{
     text-align:center;
-    padding:20px;
+    padding:25px;
     font-size:40px;
-    color:#00f7ff;
-    text-shadow:0 0 20px #00f7ff;
+    color:#ffcc00;
+    text-shadow:0 0 20px #ff0000;
 }
 
-/* 🧭 MENU */
+/* 🧿 ORNAMENT LINE */
+.ornament{
+    text-align:center;
+    font-size:20px;
+    color:#ffcc00;
+    margin-bottom:20px;
+}
+
+/* 🧭 NAV */
 nav{
     display:flex;
     justify-content:center;
-    gap:20px;
+    gap:15px;
     flex-wrap:wrap;
     margin-bottom:20px;
 }
@@ -52,78 +60,73 @@ nav{
 nav a{
     text-decoration:none;
     color:white;
-    padding:10px 20px;
-    border:1px solid #00f7ff;
+    padding:10px 18px;
+    border:1px solid #ffcc00;
     border-radius:20px;
     transition:0.3s;
 }
 
 nav a:hover{
-    background:#00f7ff;
+    background:#ffcc00;
     color:black;
-    box-shadow:0 0 20px #00f7ff;
+    box-shadow:0 0 15px #ffcc00;
 }
 
-/* 📦 CATEGORIES */
+/* 📰 NEWS GRID */
 .container{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
     gap:20px;
-    padding:30px;
+    padding:20px;
 }
 
 .card{
-    height:150px;
     background:rgba(255,255,255,0.05);
-    border:1px solid #00f7ff;
+    border:1px solid #ffcc00;
     border-radius:15px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-size:20px;
+    overflow:hidden;
     transition:0.4s;
-    box-shadow:0 0 10px #00f7ff;
-    cursor:pointer;
+    box-shadow:0 0 10px rgba(255,204,0,0.3);
 }
 
 .card:hover{
-    transform:scale(1.1) rotateY(10deg);
-    box-shadow:0 0 30px #ff00cc;
+    transform:scale(1.05);
+    box-shadow:0 0 25px #ffcc00;
 }
 
-/* 🎮 JOYSTICK DESIGN */
-.joystick{
-    position:fixed;
-    bottom:20px;
-    right:20px;
-    width:120px;
-    height:120px;
-    border-radius:50%;
-    background:rgba(255,255,255,0.05);
-    border:2px solid #00f7ff;
-    box-shadow:0 0 20px #00f7ff;
+.card img{
+    width:100%;
+    height:160px;
+    object-fit:cover;
 }
 
-.stick{
-    width:40px;
-    height:40px;
-    background:#ff00cc;
-    border-radius:50%;
-    position:absolute;
-    top:40px;
-    left:40px;
-    box-shadow:0 0 20px #ff00cc;
+.card h3{
+    padding:10px;
+    color:#ffcc00;
 }
 
-/* ✨ FLOATING DOTS */
+.card p{
+    padding:0 10px 15px;
+    color:#ddd;
+}
+
+/* ✨ MOUSE EFFECT */
 .dot{
     position:fixed;
-    width:6px;
-    height:6px;
-    background:#00f7ff;
+    width:8px;
+    height:8px;
+    background:#ffcc00;
     border-radius:50%;
     pointer-events:none;
-    box-shadow:0 0 10px #00f7ff;
+    box-shadow:0 0 10px #ff0000;
+}
+
+footer{
+    text-align:center;
+    padding:20px;
+    color:#ffcc00;
+    border-top:1px solid #ffcc00;
+    margin-top:30px;
 }
 
 </style>
@@ -133,36 +136,52 @@ nav a:hover{
 
 <div class="bg"></div>
 
-<header>🔥 NEON GAMING STORE 🔥</header>
+<header>📰 KHATIA NEWS</header>
+<div class="ornament">❖ ❖ ❖ ქართული საინფორმაციო სააგენტო ❖ ❖ ❖</div>
 
 <nav>
-<a href="#">Home</a>
-<a href="#">Games</a>
-<a href="#">Action</a>
-<a href="#">Racing</a>
-<a href="#">RPG</a>
-<a href="#">Settings</a>
+<a href="#">მთავარი</a>
+<a href="#">პოლიტიკა</a>
+<a href="#">სპორტი</a>
+<a href="#">ეკონომიკა</a>
+<a href="#">კულტურა</a>
 </nav>
 
 <div class="container">
-<div class="card">🎮 Action Games</div>
-<div class="card">🚗 Racing Games</div>
-<div class="card">⚔ RPG Worlds</div>
-<div class="card">🔫 Shooter Zone</div>
-<div class="card">🌌 Cyberpunk</div>
-<div class="card">🧙 Fantasy</div>
-<div class="card">🕹 Multiplayer</div>
-<div class="card">🎧 Music Games</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c">
+<h3>ახალი ამბები თბილისში</h3>
+<p>ქალაქში ინფრასტრუქტურული პროექტები აქტიურად მიმდინარეობს...</p>
 </div>
 
-<!-- JOYSTICK -->
-<div class="joystick">
-<div class="stick"></div>
+<div class="card">
+<img src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620">
+<h3>სპორტი</h3>
+<p>საქართველოს ნაკრები ახალ მატჩს ემზადება...</p>
 </div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a">
+<h3>ეკონომიკა</h3>
+<p>ლარი სტაბილურობას ინარჩუნებს ბაზარზე...</p>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d">
+<h3>კულტურა</h3>
+<p>ახალი ქართული ფესტივალი გაიმართა ბათუმში...</p>
+</div>
+
+</div>
+
+<footer>
+© 2026 Khatia News | ყველა უფლება დაცულია
+</footer>
 
 <script>
 
-/* ✨ MOUSE MAGIC DOTS */
+/* ✨ MOUSE MAGIC */
 document.addEventListener("mousemove",(e)=>{
     let d=document.createElement("div");
     d.className="dot";
