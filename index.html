@@ -3,180 +3,295 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>გია მამულაშვილი — Developer Portfolio</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <title>გია მამულაშვილი — dev portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
-      --bg: #ffffff;
-      --bg-secondary: #f5f5f4;
-      --text: #1a1a1a;
-      --text-secondary: #6b7280;
-      --text-tertiary: #9ca3af;
-      --border: rgba(0,0,0,0.12);
-      --border-hover: rgba(0,0,0,0.25);
-      --blue-bg: #E6F1FB;
-      --blue-text: #0C447C;
-      --blue-badge: #185FA5;
-      --blue-dot: #378ADD;
-      --radius-md: 8px;
-      --radius-lg: 12px;
-      scroll-behavior: smooth;
+      --bg: #0d1117;
+      --bg2: #161b22;
+      --bg3: #21262d;
+      --green: #3fb950;
+      --green-dim: #238636;
+      --blue: #58a6ff;
+      --purple: #bc8cff;
+      --orange: #f0883e;
+      --red: #ff7b72;
+      --text: #e6edf3;
+      --text2: #8b949e;
+      --border: #30363d;
+      --cursor: #3fb950;
     }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #1a1a1a;
-        --bg-secondary: #252525;
-        --text: #f5f5f4;
-        --text-secondary: #a8a29e;
-        --text-tertiary: #78716c;
-        --border: rgba(255,255,255,0.12);
-        --border-hover: rgba(255,255,255,0.25);
-        --blue-bg: #042C53;
-        --blue-text: #B5D4F4;
-        --blue-badge: #85B7EB;
-        --blue-dot: #378ADD;
-      }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
     }
-    body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+    code, .mono { font-family: 'Fira Code', monospace; }
 
+    /* scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+    /* NAV */
     nav {
       display: flex; justify-content: space-between; align-items: center;
-      padding: 1rem 2rem; border-bottom: 0.5px solid var(--border);
-      position: sticky; top: 0; background: var(--bg); z-index: 10;
+      padding: 1rem 2rem;
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0;
+      background: rgba(13,17,23,0.92);
+      backdrop-filter: blur(8px);
+      z-index: 100;
     }
-    .nav-name { font-size: 16px; font-weight: 500; }
+    .nav-logo { font-family: 'Fira Code', monospace; font-size: 14px; color: var(--green); }
+    .nav-logo span { color: var(--text2); }
     .nav-links { display: flex; gap: 1.5rem; }
-    .nav-links a { font-size: 14px; color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
-    .nav-links a:hover { color: var(--text); }
-
-    .hero { padding: 4rem 2rem; border-bottom: 0.5px solid var(--border); }
-    .badge {
-      display: inline-block; font-size: 12px; padding: 4px 12px;
-      background: var(--blue-bg); color: var(--blue-text);
-      border-radius: var(--radius-md); margin-bottom: 1rem;
+    .nav-links a {
+      font-family: 'Fira Code', monospace;
+      font-size: 13px; color: var(--text2);
+      text-decoration: none; transition: color 0.2s;
     }
-    .hero h1 { font-size: 36px; font-weight: 500; margin-bottom: 0.5rem; }
-    .hero p { font-size: 16px; color: var(--text-secondary); max-width: 520px; line-height: 1.7; margin-bottom: 1.5rem; }
+    .nav-links a:hover { color: var(--green); }
+    .nav-links a::before { content: './'; color: var(--green); }
+
+    /* HERO */
+    .hero {
+      padding: 5rem 2rem 4rem;
+      border-bottom: 1px solid var(--border);
+      max-width: 860px;
+    }
+    .hero-pre {
+      font-family: 'Fira Code', monospace;
+      font-size: 13px; color: var(--text2);
+      margin-bottom: 1rem;
+    }
+    .hero-pre .c-green { color: var(--green); }
+    .hero-pre .c-blue { color: var(--blue); }
+    .hero-pre .c-purple { color: var(--purple); }
+    .hero-pre .c-orange { color: var(--orange); }
+    .hero h1 {
+      font-family: 'Fira Code', monospace;
+      font-size: clamp(28px, 5vw, 48px);
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+    .hero h1 .cursor {
+      display: inline-block;
+      width: 3px; height: 1em;
+      background: var(--cursor);
+      vertical-align: text-bottom;
+      animation: blink 1s step-end infinite;
+      margin-left: 2px;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+    .hero-sub {
+      font-size: 16px; color: var(--text2);
+      max-width: 500px; margin: 1rem 0 2rem;
+      line-height: 1.7;
+    }
+    .hero-sub .highlight { color: var(--blue); }
     .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
-    .btn-primary {
-      padding: 8px 20px; font-size: 14px; font-weight: 500;
-      background: var(--text); color: var(--bg);
-      border: none; border-radius: var(--radius-md); cursor: pointer; text-decoration: none; display: inline-block;
+    .btn-green {
+      font-family: 'Fira Code', monospace;
+      font-size: 13px; padding: 8px 20px;
+      background: var(--green-dim);
+      border: 1px solid var(--green);
+      color: var(--green); border-radius: 6px;
+      cursor: pointer; text-decoration: none;
+      transition: background 0.2s;
     }
-    .btn-outline {
-      padding: 8px 20px; font-size: 14px;
-      background: transparent; color: var(--text);
-      border: 0.5px solid var(--border-hover); border-radius: var(--radius-md); cursor: pointer; text-decoration: none; display: inline-block;
+    .btn-green:hover { background: #2ea043; color: #fff; }
+    .btn-ghost {
+      font-family: 'Fira Code', monospace;
+      font-size: 13px; padding: 8px 20px;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text2); border-radius: 6px;
+      cursor: pointer; text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
     }
-    .btn-primary:hover { opacity: 0.85; }
-    .btn-outline:hover { background: var(--bg-secondary); }
+    .btn-ghost:hover { border-color: var(--text2); color: var(--text); }
 
-    section { padding: 3rem 2rem; border-bottom: 0.5px solid var(--border); }
-    .section-label { font-size: 12px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1.5rem; }
-
-    .skills-grid { display: flex; gap: 8px; flex-wrap: wrap; }
-    .skill-tag {
-      font-size: 13px; padding: 5px 14px;
-      background: var(--bg-secondary);
-      border: 0.5px solid var(--border);
-      border-radius: var(--radius-md);
-      color: var(--text-secondary);
+    /* SECTIONS */
+    section { padding: 3.5rem 2rem; border-bottom: 1px solid var(--border); }
+    .section-tag {
+      font-family: 'Fira Code', monospace;
+      font-size: 12px; color: var(--green);
+      margin-bottom: 0.5rem;
+    }
+    .section-title {
+      font-size: 20px; font-weight: 500;
+      color: var(--text); margin-bottom: 2rem;
     }
 
-    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+    /* SKILLS */
+    .skills-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+    .skill {
+      font-family: 'Fira Code', monospace;
+      font-size: 12px; padding: 4px 12px;
+      border-radius: 20px; border: 1px solid;
+    }
+    .skill.js { color: #f0db4f; border-color: #f0db4f22; background: #f0db4f0d; }
+    .skill.ts { color: var(--blue); border-color: #58a6ff22; background: #58a6ff0d; }
+    .skill.react { color: #61dafb; border-color: #61dafb22; background: #61dafb0d; }
+    .skill.node { color: var(--green); border-color: #3fb95022; background: #3fb9500d; }
+    .skill.python { color: var(--orange); border-color: #f0883e22; background: #f0883e0d; }
+    .skill.other { color: var(--purple); border-color: #bc8cff22; background: #bc8cff0d; }
+
+    /* PROJECTS */
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
     .project-card {
-      background: var(--bg);
-      border: 0.5px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 1.25rem;
-      transition: border-color 0.2s;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 8px; padding: 1.25rem;
+      transition: border-color 0.2s, transform 0.2s;
+      position: relative; overflow: hidden;
     }
-    .project-card:hover { border-color: var(--border-hover); }
-    .project-icon { font-size: 20px; margin-bottom: 12px; color: var(--text-secondary); }
-    .project-card h3 { font-size: 15px; font-weight: 500; margin-bottom: 6px; }
-    .project-card p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 12px; }
+    .project-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px; background: var(--green);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .project-card:hover { border-color: var(--green); transform: translateY(-2px); }
+    .project-card:hover::before { transform: scaleX(1); }
+    .project-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+    .project-icon { font-size: 16px; }
+    .project-name {
+      font-family: 'Fira Code', monospace;
+      font-size: 14px; font-weight: 500; color: var(--blue);
+    }
+    .project-desc { font-size: 13px; color: var(--text2); line-height: 1.6; margin-bottom: 14px; }
     .project-tags { display: flex; gap: 6px; flex-wrap: wrap; }
     .project-tag {
+      font-family: 'Fira Code', monospace;
       font-size: 11px; padding: 2px 8px;
-      background: var(--blue-bg); color: var(--blue-badge);
-      border-radius: var(--radius-md);
+      background: var(--bg3); color: var(--text2);
+      border-radius: 4px; border: 1px solid var(--border);
     }
 
-    .exp-list { display: flex; flex-direction: column; gap: 16px; }
-    .exp-item { display: flex; gap: 1rem; align-items: flex-start; }
-    .exp-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--blue-dot); margin-top: 6px; flex-shrink: 0; }
-    .exp-year { font-size: 12px; color: var(--text-tertiary); min-width: 100px; }
-    .exp-role { font-size: 14px; font-weight: 500; }
-    .exp-company { font-size: 13px; color: var(--text-secondary); }
+    /* EXPERIENCE */
+    .exp-list { display: flex; flex-direction: column; gap: 0; }
+    .exp-item {
+      display: grid; grid-template-columns: 110px 1fr;
+      gap: 1rem; padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .exp-item:last-child { border-bottom: none; }
+    .exp-year {
+      font-family: 'Fira Code', monospace;
+      font-size: 12px; color: var(--text2); padding-top: 3px;
+    }
+    .exp-role { font-size: 14px; font-weight: 500; color: var(--text); }
+    .exp-company { font-size: 13px; color: var(--green); font-family: 'Fira Code', monospace; }
 
-    .contact-row { display: flex; gap: 12px; flex-wrap: wrap; }
-    .contact-btn {
+    /* CONTACT */
+    .contact-code {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 8px; padding: 1.5rem;
+      font-family: 'Fira Code', monospace;
+      font-size: 13px; line-height: 2;
+      margin-bottom: 1.5rem;
+    }
+    .c-purple { color: var(--purple); }
+    .c-blue { color: var(--blue); }
+    .c-green { color: var(--green); }
+    .c-orange { color: var(--orange); }
+    .c-text2 { color: var(--text2); }
+    .contact-links { display: flex; gap: 10px; flex-wrap: wrap; }
+    .contact-link {
       display: flex; align-items: center; gap: 8px;
-      padding: 8px 16px; font-size: 14px;
-      background: var(--bg-secondary);
-      border: 0.5px solid var(--border);
-      border-radius: var(--radius-md); cursor: pointer;
-      color: var(--text); text-decoration: none; transition: border-color 0.2s;
+      font-family: 'Fira Code', monospace;
+      font-size: 13px; padding: 8px 16px;
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 6px; color: var(--text2);
+      text-decoration: none; transition: border-color 0.2s, color 0.2s;
     }
-    .contact-btn:hover { border-color: var(--border-hover); }
+    .contact-link:hover { border-color: var(--green); color: var(--green); }
+
+    /* FOOTER */
+    footer {
+      padding: 1.5rem 2rem;
+      font-family: 'Fira Code', monospace;
+      font-size: 12px; color: var(--text2);
+      text-align: center;
+    }
+    footer span { color: var(--red); }
 
     @media (max-width: 600px) {
       nav { padding: 0.75rem 1rem; }
-      .nav-links { gap: 1rem; }
-      .hero { padding: 2.5rem 1rem; }
-      .hero h1 { font-size: 26px; }
-      section { padding: 2rem 1rem; }
+      .nav-links { gap: 0.75rem; }
+      .hero { padding: 3rem 1rem 2.5rem; }
+      section { padding: 2.5rem 1rem; }
+      .exp-item { grid-template-columns: 1fr; gap: 4px; }
     }
   </style>
 </head>
 <body>
 
 <nav>
-  <span class="nav-name">გია მამულაშვილი</span>
+  <div class="nav-logo"><span>~/</span>gia-portfolio</div>
   <div class="nav-links">
-    <a href="#about">ჩემ შესახებ</a>
-    <a href="#projects">პროექტები</a>
-    <a href="#experience">გამოცდილება</a>
-    <a href="#contact">კონტაქტი</a>
+    <a href="#about">about</a>
+    <a href="#projects">projects</a>
+    <a href="#experience">experience</a>
+    <a href="#contact">contact</a>
   </div>
 </nav>
 
 <div class="hero" id="about">
-  <div class="badge">Full-stack developer</div>
-  <h1>გამარჯობა, მე ვარ გია 👋</h1>
-  <p>ვქმნი სწრაფ, ლამაზ და გამოყენებადი ვებ-აპლიკაციებს. React, Node.js და Python — ჩემი ძირითადი ინსტრუმენტები.</p>
+  <div class="hero-pre">
+    <span class="c-purple">const</span> <span class="c-blue">developer</span> <span class="c-text2">=</span> {<br>
+    &nbsp;&nbsp;name: <span class="c-orange">"გია მამულაშვილი"</span>,<br>
+    &nbsp;&nbsp;role: <span class="c-orange">"Full-stack Developer"</span>,<br>
+    &nbsp;&nbsp;location: <span class="c-orange">"Tbilisi, Georgia 🇬🇪"</span><br>
+    }
+  </div>
+  <h1>გამარჯობა, მე ვარ გია<span class="cursor"></span></h1>
+  <p class="hero-sub">ვქმნი <span class="highlight">სწრაფ</span> და <span class="highlight">გამოყენებად</span> ვებ-აპლიკაციებს. კოდი — ჩემი ენა.</p>
   <div class="hero-btns">
-    <a href="#projects" class="btn-primary">პროექტების ნახვა</a>
-    <a href="#contact" class="btn-outline">დაკავშირება</a>
+    <a href="#projects" class="btn-green">$ ls projects/</a>
+    <a href="#contact" class="btn-ghost">$ git contact</a>
   </div>
 </div>
 
 <section id="skills">
-  <div class="section-label">ტექნოლოგიები</div>
+  <div class="section-tag">// skills</div>
+  <div class="section-title">ტექნოლოგიები</div>
   <div class="skills-grid">
-    <span class="skill-tag">JavaScript</span>
-    <span class="skill-tag">TypeScript</span>
-    <span class="skill-tag">React</span>
-    <span class="skill-tag">Next.js</span>
-    <span class="skill-tag">Node.js</span>
-    <span class="skill-tag">Python</span>
-    <span class="skill-tag">PostgreSQL</span>
-    <span class="skill-tag">Docker</span>
-    <span class="skill-tag">Git</span>
-    <span class="skill-tag">REST API</span>
-    <span class="skill-tag">Tailwind CSS</span>
-    <span class="skill-tag">AWS</span>
+    <span class="skill js">JavaScript</span>
+    <span class="skill ts">TypeScript</span>
+    <span class="skill react">React</span>
+    <span class="skill react">Next.js</span>
+    <span class="skill node">Node.js</span>
+    <span class="skill python">Python</span>
+    <span class="skill python">FastAPI</span>
+    <span class="skill other">PostgreSQL</span>
+    <span class="skill other">Docker</span>
+    <span class="skill other">Git</span>
+    <span class="skill other">AWS</span>
+    <span class="skill ts">Tailwind CSS</span>
   </div>
 </section>
 
 <section id="projects">
-  <div class="section-label">პროექტები</div>
+  <div class="section-tag">// projects</div>
+  <div class="section-title">პროექტები</div>
   <div class="projects-grid">
     <div class="project-card">
-      <div class="project-icon"><i class="ti ti-shopping-cart"></i></div>
-      <h3>E-commerce პლატფორმა</h3>
-      <p>სრული ონლაინ მაღაზია გადახდის სისტემით, ადმინ პანელით და ანალიტიკით.</p>
+      <div class="project-header">
+        <span class="project-icon">🛒</span>
+        <span class="project-name">e-commerce-platform</span>
+      </div>
+      <p class="project-desc">სრული ონლაინ მაღაზია გადახდის სისტემით, ადმინ პანელით და ანალიტიკით.</p>
       <div class="project-tags">
         <span class="project-tag">React</span>
         <span class="project-tag">Node.js</span>
@@ -184,9 +299,11 @@
       </div>
     </div>
     <div class="project-card">
-      <div class="project-icon"><i class="ti ti-message-2"></i></div>
-      <h3>Real-time Chat App</h3>
-      <p>WebSocket-ზე დაფუძნებული ჩატ-აპლიკაცია ჯგუფური ოთახებით და ფაილების გაზიარებით.</p>
+      <div class="project-header">
+        <span class="project-icon">💬</span>
+        <span class="project-name">realtime-chat</span>
+      </div>
+      <p class="project-desc">WebSocket-ზე დაფუძნებული ჩატი ჯგუფური ოთახებით და ფაილების გაზიარებით.</p>
       <div class="project-tags">
         <span class="project-tag">Next.js</span>
         <span class="project-tag">Socket.io</span>
@@ -194,9 +311,11 @@
       </div>
     </div>
     <div class="project-card">
-      <div class="project-icon"><i class="ti ti-chart-line"></i></div>
-      <h3>Analytics Dashboard</h3>
-      <p>მონაცემების ვიზუალიზაციის პანელი, ინტეგრირებული გარე API-სთან.</p>
+      <div class="project-header">
+        <span class="project-icon">📊</span>
+        <span class="project-name">analytics-dashboard</span>
+      </div>
+      <p class="project-desc">მონაცემების ვიზუალიზაციის პანელი, ინტეგრირებული გარე API-სთან.</p>
       <div class="project-tags">
         <span class="project-tag">Python</span>
         <span class="project-tag">FastAPI</span>
@@ -207,28 +326,26 @@
 </section>
 
 <section id="experience">
-  <div class="section-label">გამოცდილება</div>
+  <div class="section-tag">// experience</div>
+  <div class="section-title">გამოცდილება</div>
   <div class="exp-list">
     <div class="exp-item">
-      <div class="exp-dot"></div>
+      <div class="exp-year">2023 → now</div>
       <div>
-        <div class="exp-year">2023 — დღემდე</div>
         <div class="exp-role">Senior Frontend Developer</div>
         <div class="exp-company">TechStartup Georgia</div>
       </div>
     </div>
     <div class="exp-item">
-      <div class="exp-dot"></div>
+      <div class="exp-year">2021 → 2023</div>
       <div>
-        <div class="exp-year">2021 — 2023</div>
         <div class="exp-role">Full-stack Developer</div>
         <div class="exp-company">Digital Agency Tbilisi</div>
       </div>
     </div>
     <div class="exp-item">
-      <div class="exp-dot"></div>
+      <div class="exp-year">2019 → 2021</div>
       <div>
-        <div class="exp-year">2019 — 2021</div>
         <div class="exp-role">Junior Developer</div>
         <div class="exp-company">Freelance</div>
       </div>
@@ -237,20 +354,25 @@
 </section>
 
 <section id="contact">
-  <div class="section-label">კონტაქტი</div>
-  <p style="font-size:15px; color:var(--text-secondary); margin-bottom:1.25rem;">მზად ვარ ახალი პროექტებისთვის. დამიკავშირდი!</p>
-  <div class="contact-row">
-    <a class="contact-btn" href="mailto:gia@example.com">
-      <i class="ti ti-mail"></i> imeili@gmail.com
-    </a>
-    <a class="contact-btn" href="https://github.com" target="_blank">
-      <i class="ti ti-brand-github"></i> GitHub
-    </a>
-    <a class="contact-btn" href="https://linkedin.com" target="_blank">
-      <i class="ti ti-brand-linkedin"></i> LinkedIn
-    </a>
+  <div class="section-tag">// contact</div>
+  <div class="section-title">დაკავშირება</div>
+  <div class="contact-code">
+    <span class="c-purple">const</span> <span class="c-blue">contact</span> <span class="c-text2">=</span> {<br>
+    &nbsp;&nbsp;email: <span class="c-green">"gia@example.com"</span>,<br>
+    &nbsp;&nbsp;github: <span class="c-green">"github.com/geoshavi"</span>,<br>
+    &nbsp;&nbsp;status: <span class="c-green">"open to work ✅"</span><br>
+    }
+  </div>
+  <div class="contact-links">
+    <a href="mailto:gia@example.com" class="contact-link">📧 email</a>
+    <a href="https://github.com/geoshavi" target="_blank" class="contact-link">🐙 github</a>
+    <a href="https://linkedin.com" target="_blank" class="contact-link">💼 linkedin</a>
   </div>
 </section>
+
+<footer>
+  made with <span>♥</span> by gia // <span style="color:#3fb950">geoshavi</span>
+</footer>
 
 </body>
 </html>
