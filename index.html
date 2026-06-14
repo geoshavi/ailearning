@@ -1,311 +1,256 @@
 <!DOCTYPE html>
-<html lang="ka">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Khatia News</title>
+<title>UFC Freedom 250</title>
 
 <style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
 body{
-    margin:0;
-    font-family:Arial;
-    background:#0b0b0f;
-    color:white;
-    overflow-x:hidden;
+background:#050505;
+color:white;
+overflow-x:hidden;
+cursor:none;
 }
 
-/* 🌊 BACKGROUND */
+/* Animated Background */
 .bg{
-    position:fixed;
-    width:100%;
-    height:100%;
-    background:linear-gradient(120deg,#2b0000,#5c0000,#0b0b0f,#8b0000);
-    background-size:400% 400%;
-    animation:bg 10s infinite alternate;
-    filter:blur(30px);
-    z-index:-2;
+position:fixed;
+width:100%;
+height:100%;
+background:
+radial-gradient(circle at 20% 20%, rgba(255,0,0,.4), transparent 40%),
+radial-gradient(circle at 80% 30%, rgba(255,215,0,.3), transparent 40%),
+radial-gradient(circle at 50% 80%, rgba(255,255,255,.08), transparent 50%);
+animation:movebg 10s infinite alternate;
+z-index:-2;
 }
 
-@keyframes bg{
-    0%{background-position:0% 50%;}
-    100%{background-position:100% 50%;}
+@keyframes movebg{
+from{transform:scale(1);}
+to{transform:scale(1.15);}
 }
 
-/* HEADER */
-header{
-    text-align:center;
-    padding:25px;
-    font-size:40px;
-    color:#ffcc00;
-    text-shadow:0 0 20px #ff0000;
+/* Belt Cursor */
+.cursor{
+position:fixed;
+width:40px;
+height:20px;
+background:gold;
+border-radius:20px;
+pointer-events:none;
+box-shadow:0 0 20px gold;
+z-index:9999;
 }
 
-.ornament{
-    text-align:center;
-    color:#ffcc00;
-    margin-bottom:15px;
+/* Hero */
+.hero{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
 }
 
-/* NAV */
-nav{
-    display:flex;
-    justify-content:center;
-    gap:15px;
-    flex-wrap:wrap;
-    margin-bottom:20px;
+.hero h1{
+font-size:70px;
+color:gold;
+text-shadow:0 0 30px gold;
 }
 
-nav a{
-    text-decoration:none;
-    color:white;
-    padding:10px 15px;
-    border:1px solid #ffcc00;
-    border-radius:20px;
-    transition:0.3s;
+.hero h2{
+font-size:40px;
+margin-top:15px;
+color:#fff;
 }
 
-nav a:hover{
-    background:#ffcc00;
-    color:black;
+.hero button{
+margin-top:30px;
+padding:15px 30px;
+font-size:18px;
+background:gold;
+border:none;
+border-radius:30px;
+cursor:pointer;
 }
 
-/* BUTTON */
-.centerBtn{
-    text-align:center;
-    margin:20px;
+/* Countdown */
+.countdown{
+display:flex;
+justify-content:center;
+gap:20px;
+margin-top:40px;
 }
 
-button{
-    padding:10px 20px;
-    background:#ffcc00;
-    border:none;
-    border-radius:10px;
-    font-weight:bold;
-    cursor:pointer;
+.box{
+background:#111;
+padding:20px;
+border:2px solid gold;
+border-radius:15px;
+min-width:100px;
 }
 
-/* POSTS */
-.form{
-    text-align:center;
-    margin:20px;
-    display:none;
+/* Fighters */
+.section{
+padding:80px 20px;
+text-align:center;
 }
 
-input{
-    padding:10px;
-    margin:5px;
-    border-radius:10px;
-    border:none;
-    outline:none;
+.section h2{
+font-size:50px;
+margin-bottom:40px;
+color:gold;
 }
 
-.container{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
-    padding:20px;
+.fighters{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
 }
 
 .card{
-    background:rgba(255,255,255,0.05);
-    border:1px solid #ffcc00;
-    border-radius:15px;
-    padding:15px;
-    transition:0.3s;
+background:#111;
+border:2px solid gold;
+border-radius:20px;
+padding:20px;
+transition:.4s;
 }
 
 .card:hover{
-    transform:scale(1.05);
-    box-shadow:0 0 20px #ffcc00;
+transform:translateY(-10px) scale(1.05);
+box-shadow:0 0 25px gold;
+}
+
+.card img{
+width:100%;
+border-radius:15px;
 }
 
 .card h3{
-    color:#ffcc00;
+margin-top:15px;
 }
 
-/* POPUP */
-#popup{
-    display:none;
-    position:fixed;
-    top:0;left:0;
-    width:100%;height:100%;
-    background:rgba(0,0,0,0.7);
-    justify-content:center;
-    align-items:center;
-}
-
-.popupBox{
-    background:#111;
-    padding:25px;
-    border-radius:15px;
-    text-align:center;
-    width:280px;
-    box-shadow:0 0 20px #ffcc00;
-}
-
-.popupBox input{
-    width:90%;
-    margin:10px 0;
-}
-
-#msg{
-    margin-top:10px;
-}
-
-/* MOUSE EFFECT */
-.dot{
-    position:fixed;
-    width:7px;
-    height:7px;
-    background:#ffcc00;
-    border-radius:50%;
-    pointer-events:none;
-    box-shadow:0 0 10px red;
-}
-
-/* FOOTER */
+/* Footer */
 footer{
-    text-align:center;
-    padding:20px;
-    color:#ffcc00;
-    border-top:1px solid #ffcc00;
-    margin-top:30px;
+text-align:center;
+padding:40px;
+border-top:1px solid gold;
+margin-top:50px;
 }
-
 </style>
 </head>
 
 <body>
 
 <div class="bg"></div>
+<div class="cursor" id="cursor"></div>
 
-<header>📰 KHATIA NEWS</header>
-<div class="ornament">❖ ქართული საინფორმაციო სააგენტო ❖</div>
+<section class="hero">
+<h1>UFC FREEDOM 250</h1>
+<h2>Ilia Topuria vs Justin Gaethje</h2>
 
-<nav>
-<a href="#">მთავარი</a>
-<a href="#">პოლიტიკა</a>
-<a href="#">სპორტი</a>
-<a href="#">კულტურა</a>
-<a href="#">ეკონომიკა</a>
-</nav>
-
-<!-- LOGIN BUTTON -->
-<div class="centerBtn">
-<button onclick="openLogin()">🔐 Admin Login</button>
+<div class="countdown">
+<div class="box">
+<h3 id="days">00</h3>
+<p>Days</p>
 </div>
 
-<!-- POPUP LOGIN -->
-<div id="popup">
-    <div class="popupBox">
-        <h2 style="color:#ffcc00;">Admin Login</h2>
-
-        <input type="password" id="pass" placeholder="Password">
-
-        <button onclick="login()">Login</button>
-        <button onclick="closeLogin()" style="background:none;color:white;">Close</button>
-
-        <p id="msg"></p>
-    </div>
+<div class="box">
+<h3 id="hours">00</h3>
+<p>Hours</p>
 </div>
 
-<!-- FORM -->
-<div class="form" id="form">
-    <input id="title" placeholder="სათაური">
-    <input id="text" placeholder="ტექსტი">
-    <button onclick="addPost()">დამატება</button>
+<div class="box">
+<h3 id="minutes">00</h3>
+<p>Minutes</p>
 </div>
 
-<!-- POSTS -->
-<div id="posts" class="container">
+<div class="box">
+<h3 id="seconds">00</h3>
+<p>Seconds</p>
+</div>
+</div>
+
+<button>Watch Event</button>
+</section>
+
+<section class="section">
+<h2>Main Fighters</h2>
+
+<div class="fighters">
 
 <div class="card">
-<h3>თბილისში ახალი პროექტები</h3>
-<p>ქალაქში ინფრასტრუქტურა ვითარდება...</p>
+<h3>🇬🇪 Ilia Topuria</h3>
+<p>Featherweight Champion</p>
 </div>
 
 <div class="card">
-<h3>სპორტი</h3>
-<p>ნაკრები ემზადება ახალ მატჩისთვის...</p>
+<h3>🇺🇸 Justin Gaethje</h3>
+<p>BMF Contender</p>
 </div>
 
 <div class="card">
-<h3>ეკონომიკა</h3>
-<p>ბაზარზე სტაბილურობა შეინიშნება...</p>
+<h3>🇧🇷 Alex Pereira</h3>
+<p>Knockout Machine</p>
+</div>
+
+<div class="card">
+<h3>🇫🇷 Ciryl Gane</h3>
+<p>Heavyweight Elite</p>
+</div>
+
+<div class="card">
+<h3>🇺🇸 Sean O'Malley</h3>
+<p>Bantamweight Star</p>
+</div>
+
+<div class="card">
+<h3>🇺🇸 Michael Chandler</h3>
+<p>Fan Favorite</p>
 </div>
 
 </div>
+</section>
 
 <footer>
-© 2026 Khatia News
+© UFC Freedom 250 Fan Project
 </footer>
 
 <script>
+/* Cursor */
+const cursor=document.getElementById("cursor");
 
-/* 🔐 POPUP */
-function openLogin(){
-    document.getElementById("popup").style.display="flex";
-}
-
-function closeLogin(){
-    document.getElementById("popup").style.display="none";
-    document.getElementById("msg").innerText="";
-}
-
-/* LOGIN */
-function login(){
-    let pass=document.getElementById("pass").value;
-
-    if(pass==="admin123"){
-        document.getElementById("msg").style.color="lightgreen";
-        document.getElementById("msg").innerText="✔ Access Granted";
-
-        setTimeout(()=>{
-            closeLogin();
-            document.getElementById("form").style.display="block";
-        },1000);
-
-    }else{
-        document.getElementById("msg").style.color="red";
-        document.getElementById("msg").innerText="❌ Wrong Password!";
-    }
-}
-
-/* ➕ ADD POST */
-function addPost(){
-    let title=document.getElementById("title").value;
-    let text=document.getElementById("text").value;
-
-    if(title=="" || text==""){
-        alert("შეავსე ორივე ველი!");
-        return;
-    }
-
-    let div=document.createElement("div");
-    div.className="card";
-
-    div.innerHTML=`
-        <h3>${title}</h3>
-        <p>${text}</p>
-    `;
-
-    document.getElementById("posts").appendChild(div);
-
-    document.getElementById("title").value="";
-    document.getElementById("text").value="";
-}
-
-/* ✨ MOUSE EFFECT */
 document.addEventListener("mousemove",(e)=>{
-    let d=document.createElement("div");
-    d.className="dot";
-    d.style.left=e.pageX+"px";
-    d.style.top=e.pageY+"px";
-    document.body.appendChild(d);
-
-    setTimeout(()=>d.remove(),400);
+cursor.style.left=e.clientX+"px";
+cursor.style.top=e.clientY+"px";
 });
 
+/* Countdown Example */
+const target=new Date("July 4, 2026 20:00:00").getTime();
+
+setInterval(()=>{
+let now=new Date().getTime();
+let diff=target-now;
+
+let days=Math.floor(diff/(1000*60*60*24));
+let hours=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+let minutes=Math.floor((diff%(1000*60*60))/(1000*60));
+let seconds=Math.floor((diff%(1000*60))/1000);
+
+document.getElementById("days").innerText=days;
+document.getElementById("hours").innerText=hours;
+document.getElementById("minutes").innerText=minutes;
+document.getElementById("seconds").innerText=seconds;
+
+},1000);
 </script>
 
 </body>
