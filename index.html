@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>გია მამულაშვილი — Developer Portfolio</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #ffffff;
+      --bg-secondary: #f5f5f4;
+      --text: #1a1a1a;
+      --text-secondary: #6b7280;
+      --text-tertiary: #9ca3af;
+      --border: rgba(0,0,0,0.12);
+      --border-hover: rgba(0,0,0,0.25);
+      --blue-bg: #E6F1FB;
+      --blue-text: #0C447C;
+      --blue-badge: #185FA5;
+      --blue-dot: #378ADD;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      scroll-behavior: smooth;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #1a1a1a;
+        --bg-secondary: #252525;
+        --text: #f5f5f4;
+        --text-secondary: #a8a29e;
+        --text-tertiary: #78716c;
+        --border: rgba(255,255,255,0.12);
+        --border-hover: rgba(255,255,255,0.25);
+        --blue-bg: #042C53;
+        --blue-text: #B5D4F4;
+        --blue-badge: #85B7EB;
+        --blue-dot: #378ADD;
+      }
+    }
+    body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+
+    nav {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem 2rem; border-bottom: 0.5px solid var(--border);
+      position: sticky; top: 0; background: var(--bg); z-index: 10;
+    }
+    .nav-name { font-size: 16px; font-weight: 500; }
+    .nav-links { display: flex; gap: 1.5rem; }
+    .nav-links a { font-size: 14px; color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+
+    .hero { padding: 4rem 2rem; border-bottom: 0.5px solid var(--border); }
+    .badge {
+      display: inline-block; font-size: 12px; padding: 4px 12px;
+      background: var(--blue-bg); color: var(--blue-text);
+      border-radius: var(--radius-md); margin-bottom: 1rem;
+    }
+    .hero h1 { font-size: 36px; font-weight: 500; margin-bottom: 0.5rem; }
+    .hero p { font-size: 16px; color: var(--text-secondary); max-width: 520px; line-height: 1.7; margin-bottom: 1.5rem; }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-primary {
+      padding: 8px 20px; font-size: 14px; font-weight: 500;
+      background: var(--text); color: var(--bg);
+      border: none; border-radius: var(--radius-md); cursor: pointer; text-decoration: none; display: inline-block;
+    }
+    .btn-outline {
+      padding: 8px 20px; font-size: 14px;
+      background: transparent; color: var(--text);
+      border: 0.5px solid var(--border-hover); border-radius: var(--radius-md); cursor: pointer; text-decoration: none; display: inline-block;
+    }
+    .btn-primary:hover { opacity: 0.85; }
+    .btn-outline:hover { background: var(--bg-secondary); }
+
+    section { padding: 3rem 2rem; border-bottom: 0.5px solid var(--border); }
+    .section-label { font-size: 12px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1.5rem; }
+
+    .skills-grid { display: flex; gap: 8px; flex-wrap: wrap; }
+    .skill-tag {
+      font-size: 13px; padding: 5px 14px;
+      background: var(--bg-secondary);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-md);
+      color: var(--text-secondary);
+    }
+
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+    .project-card {
+      background: var(--bg);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      transition: border-color 0.2s;
+    }
+    .project-card:hover { border-color: var(--border-hover); }
+    .project-icon { font-size: 20px; margin-bottom: 12px; color: var(--text-secondary); }
+    .project-card h3 { font-size: 15px; font-weight: 500; margin-bottom: 6px; }
+    .project-card p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 12px; }
+    .project-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+    .project-tag {
+      font-size: 11px; padding: 2px 8px;
+      background: var(--blue-bg); color: var(--blue-badge);
+      border-radius: var(--radius-md);
+    }
+
+    .exp-list { display: flex; flex-direction: column; gap: 16px; }
+    .exp-item { display: flex; gap: 1rem; align-items: flex-start; }
+    .exp-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--blue-dot); margin-top: 6px; flex-shrink: 0; }
+    .exp-year { font-size: 12px; color: var(--text-tertiary); min-width: 100px; }
+    .exp-role { font-size: 14px; font-weight: 500; }
+    .exp-company { font-size: 13px; color: var(--text-secondary); }
+
+    .contact-row { display: flex; gap: 12px; flex-wrap: wrap; }
+    .contact-btn {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 16px; font-size: 14px;
+      background: var(--bg-secondary);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-md); cursor: pointer;
+      color: var(--text); text-decoration: none; transition: border-color 0.2s;
+    }
+    .contact-btn:hover { border-color: var(--border-hover); }
+
+    @media (max-width: 600px) {
+      nav { padding: 0.75rem 1rem; }
+      .nav-links { gap: 1rem; }
+      .hero { padding: 2.5rem 1rem; }
+      .hero h1 { font-size: 26px; }
+      section { padding: 2rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-name">გია მამულაშვილი</span>
+  <div class="nav-links">
+    <a href="#about">ჩემ შესახებ</a>
+    <a href="#projects">პროექტები</a>
+    <a href="#experience">გამოცდილება</a>
+    <a href="#contact">კონტაქტი</a>
+  </div>
+</nav>
+
+<div class="hero" id="about">
+  <div class="badge">Full-stack developer</div>
+  <h1>გამარჯობა, მე ვარ გია 👋</h1>
+  <p>ვქმნი სწრაფ, ლამაზ და გამოყენებადი ვებ-აპლიკაციებს. React, Node.js და Python — ჩემი ძირითადი ინსტრუმენტები.</p>
+  <div class="hero-btns">
+    <a href="#projects" class="btn-primary">პროექტების ნახვა</a>
+    <a href="#contact" class="btn-outline">დაკავშირება</a>
+  </div>
+</div>
+
+<section id="skills">
+  <div class="section-label">ტექნოლოგიები</div>
+  <div class="skills-grid">
+    <span class="skill-tag">JavaScript</span>
+    <span class="skill-tag">TypeScript</span>
+    <span class="skill-tag">React</span>
+    <span class="skill-tag">Next.js</span>
+    <span class="skill-tag">Node.js</span>
+    <span class="skill-tag">Python</span>
+    <span class="skill-tag">PostgreSQL</span>
+    <span class="skill-tag">Docker</span>
+    <span class="skill-tag">Git</span>
+    <span class="skill-tag">REST API</span>
+    <span class="skill-tag">Tailwind CSS</span>
+    <span class="skill-tag">AWS</span>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="section-label">პროექტები</div>
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-icon"><i class="ti ti-shopping-cart"></i></div>
+      <h3>E-commerce პლატფორმა</h3>
+      <p>სრული ონლაინ მაღაზია გადახდის სისტემით, ადმინ პანელით და ანალიტიკით.</p>
+      <div class="project-tags">
+        <span class="project-tag">React</span>
+        <span class="project-tag">Node.js</span>
+        <span class="project-tag">Stripe</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-icon"><i class="ti ti-message-2"></i></div>
+      <h3>Real-time Chat App</h3>
+      <p>WebSocket-ზე დაფუძნებული ჩატ-აპლიკაცია ჯგუფური ოთახებით და ფაილების გაზიარებით.</p>
+      <div class="project-tags">
+        <span class="project-tag">Next.js</span>
+        <span class="project-tag">Socket.io</span>
+        <span class="project-tag">Redis</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-icon"><i class="ti ti-chart-line"></i></div>
+      <h3>Analytics Dashboard</h3>
+      <p>მონაცემების ვიზუალიზაციის პანელი, ინტეგრირებული გარე API-სთან.</p>
+      <div class="project-tags">
+        <span class="project-tag">Python</span>
+        <span class="project-tag">FastAPI</span>
+        <span class="project-tag">D3.js</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="section-label">გამოცდილება</div>
+  <div class="exp-list">
+    <div class="exp-item">
+      <div class="exp-dot"></div>
+      <div>
+        <div class="exp-year">2023 — დღემდე</div>
+        <div class="exp-role">Senior Frontend Developer</div>
+        <div class="exp-company">TechStartup Georgia</div>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-dot"></div>
+      <div>
+        <div class="exp-year">2021 — 2023</div>
+        <div class="exp-role">Full-stack Developer</div>
+        <div class="exp-company">Digital Agency Tbilisi</div>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-dot"></div>
+      <div>
+        <div class="exp-year">2019 — 2021</div>
+        <div class="exp-role">Junior Developer</div>
+        <div class="exp-company">Freelance</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-label">კონტაქტი</div>
+  <p style="font-size:15px; color:var(--text-secondary); margin-bottom:1.25rem;">მზად ვარ ახალი პროექტებისთვის. დამიკავშირდი!</p>
+  <div class="contact-row">
+    <a class="contact-btn" href="mailto:gia@example.com">
+      <i class="ti ti-mail"></i> imeili@gmail.com
+    </a>
+    <a class="contact-btn" href="https://github.com" target="_blank">
+      <i class="ti ti-brand-github"></i> GitHub
+    </a>
+    <a class="contact-btn" href="https://linkedin.com" target="_blank">
+      <i class="ti ti-brand-linkedin"></i> LinkedIn
+    </a>
+  </div>
+</section>
+
+</body>
+</html>
