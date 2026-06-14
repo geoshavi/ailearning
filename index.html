@@ -13,7 +13,6 @@
       --bg2: #0d1117;
       --bg3: #161b22;
       --green: #00ff88;
-      --green-dim: #00ff8820;
       --blue: #58a6ff;
       --purple: #bc8cff;
       --orange: #f0883e;
@@ -29,71 +28,132 @@
       color: var(--text);
       line-height: 1.7;
       overflow-x: hidden;
+      cursor: none;
     }
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
     ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 2px; }
 
-    /* ANIMATED BACKGROUND */
-    #bg-canvas {
+    /* CUSTOM CURSOR */
+    #cursor {
+      position: fixed; pointer-events: none; z-index: 9999;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 12px var(--green), 0 0 30px #00ff8860;
+      transform: translate(-50%, -50%);
+      transition: transform 0.08s, width 0.2s, height 0.2s;
+      mix-blend-mode: screen;
+    }
+    #cursor-ring {
+      position: fixed; pointer-events: none; z-index: 9998;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 1px solid #00ff8870;
+      transform: translate(-50%, -50%);
+      transition: left 0.12s ease, top 0.12s ease;
+    }
+
+    /* STARS */
+    #star-canvas {
       position: fixed; top: 0; left: 0;
       width: 100%; height: 100%;
       z-index: 0; pointer-events: none;
     }
 
-    nav, section, .hero, footer { position: relative; z-index: 1; }
+    nav, .hero, section, footer { position: relative; z-index: 1; }
+
+    /* HERO SLIDER */
+    .slider-wrap {
+      position: relative; z-index: 1;
+      width: 100%; height: 280px;
+      overflow: hidden;
+    }
+    .slide {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity 0.8s ease;
+      flex-direction: column; gap: 10px;
+    }
+    .slide.active { opacity: 1; }
+    .slide-1 { background: linear-gradient(135deg, #0d1117 0%, #0f2027 50%, #203a43 100%); }
+    .slide-2 { background: linear-gradient(135deg, #0d1117 0%, #1a0533 50%, #2d0b6b 100%); }
+    .slide-3 { background: linear-gradient(135deg, #0d1117 0%, #0a2a1a 50%, #003d1f 100%); }
+    .slide-4 { background: linear-gradient(135deg, #0d1117 0%, #1f0a00 50%, #3d1a00 100%); }
+    .slide-badge {
+      font-family: 'Fira Code', monospace;
+      font-size: 11px; letter-spacing: 2px;
+      padding: 4px 14px; border-radius: 20px;
+      border: 1px solid;
+    }
+    .slide-title {
+      font-family: 'Fira Code', monospace;
+      font-size: clamp(20px, 4vw, 32px);
+      font-weight: 600; text-align: center;
+    }
+    .slide-sub { font-size: 14px; color: var(--text2); text-align: center; }
+    .slide-1 .slide-badge { color: var(--blue); border-color: var(--blue); }
+    .slide-1 .slide-title { color: var(--blue); text-shadow: 0 0 30px #58a6ff60; }
+    .slide-2 .slide-badge { color: var(--purple); border-color: var(--purple); }
+    .slide-2 .slide-title { color: var(--purple); text-shadow: 0 0 30px #bc8cff60; }
+    .slide-3 .slide-badge { color: var(--green); border-color: var(--green); }
+    .slide-3 .slide-title { color: var(--green); text-shadow: 0 0 30px #00ff8860; }
+    .slide-4 .slide-badge { color: var(--orange); border-color: var(--orange); }
+    .slide-4 .slide-title { color: var(--orange); text-shadow: 0 0 30px #f0883e60; }
+    .slider-dots {
+      position: absolute; bottom: 14px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; gap: 8px; z-index: 2;
+    }
+    .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #ffffff30; cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .dot.active { background: var(--green); transform: scale(1.3); }
 
     /* NAV */
     nav {
       display: flex; justify-content: space-between; align-items: center;
       padding: 1rem 2rem;
-      border-bottom: 1px solid #ffffff0f;
-      position: sticky; top: 0;
-      background: rgba(6,9,18,0.85);
+      border-bottom: 1px solid #ffffff0a;
+      background: rgba(6,9,18,0.9);
       backdrop-filter: blur(12px);
-      z-index: 100;
+      position: sticky; top: 0; z-index: 100;
     }
     .nav-logo { font-family: 'Fira Code', monospace; font-size: 14px; color: var(--green); }
     .nav-logo span { color: var(--text2); }
     .nav-links { display: flex; gap: 1.5rem; }
     .nav-links a {
-      font-family: 'Fira Code', monospace;
-      font-size: 12px; color: var(--text2);
-      text-decoration: none; transition: color 0.2s;
+      font-family: 'Fira Code', monospace; font-size: 12px;
+      color: var(--text2); text-decoration: none; transition: color 0.2s;
     }
-    .nav-links a:hover { color: var(--green); }
     .nav-links a::before { content: './'; color: var(--green); opacity: 0.5; }
+    .nav-links a:hover { color: var(--green); }
 
     /* HERO */
     .hero {
-      padding: 6rem 2rem 5rem;
-      border-bottom: 1px solid #ffffff0a;
+      padding: 5rem 2rem 4rem;
+      border-bottom: 1px solid #ffffff08;
       max-width: 900px;
     }
     .hero-pre {
-      font-family: 'Fira Code', monospace;
-      font-size: 13px; color: var(--text2);
-      margin-bottom: 1.5rem;
-      background: #ffffff05;
-      border: 1px solid #ffffff0a;
-      border-radius: 8px;
-      padding: 1rem 1.25rem;
-      display: inline-block;
-      line-height: 2;
+      font-family: 'Fira Code', monospace; font-size: 13px;
+      color: var(--text2); margin-bottom: 1.5rem;
+      background: #ffffff05; border: 1px solid #ffffff0a;
+      border-radius: 8px; padding: 1rem 1.25rem;
+      display: inline-block; line-height: 2;
     }
     .hero h1 {
       font-family: 'Fira Code', monospace;
-      font-size: clamp(30px, 5vw, 52px);
-      font-weight: 600;
-      line-height: 1.15;
-      margin-bottom: 1rem;
+      font-size: clamp(28px, 5vw, 50px);
+      font-weight: 600; line-height: 1.15; margin-bottom: 1rem;
     }
     .hero h1 .name { color: var(--green); text-shadow: 0 0 30px #00ff8855; }
-    .cursor {
+    .cursor-blink {
       display: inline-block; width: 3px; height: 0.85em;
       background: var(--green); vertical-align: text-bottom;
-      margin-left: 3px;
-      animation: blink 1s step-end infinite;
+      margin-left: 3px; animation: blink 1s step-end infinite;
       box-shadow: 0 0 8px var(--green);
     }
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
@@ -102,101 +162,74 @@
     .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
     .btn-green {
       font-family: 'Fira Code', monospace; font-size: 13px;
-      padding: 10px 22px;
-      background: var(--green-dim);
-      border: 1px solid var(--green);
-      color: var(--green); border-radius: 6px;
-      cursor: pointer; text-decoration: none;
-      transition: all 0.2s;
-      box-shadow: 0 0 15px #00ff8815;
+      padding: 10px 22px; background: #00ff8815;
+      border: 1px solid var(--green); color: var(--green);
+      border-radius: 6px; cursor: none; text-decoration: none;
+      transition: all 0.2s; box-shadow: 0 0 15px #00ff8815;
     }
-    .btn-green:hover { background: #00ff8830; box-shadow: 0 0 25px #00ff8835; }
+    .btn-green:hover { background: #00ff8828; box-shadow: 0 0 25px #00ff8830; }
     .btn-ghost {
       font-family: 'Fira Code', monospace; font-size: 13px;
       padding: 10px 22px; background: transparent;
       border: 1px solid #ffffff18; color: var(--text2);
-      border-radius: 6px; cursor: pointer; text-decoration: none;
+      border-radius: 6px; cursor: none; text-decoration: none;
       transition: all 0.2s;
     }
     .btn-ghost:hover { border-color: var(--text2); color: var(--text); }
 
     /* SECTIONS */
-    section {
-      padding: 4rem 2rem;
-      border-bottom: 1px solid #ffffff08;
-    }
+    section { padding: 4rem 2rem; border-bottom: 1px solid #ffffff08; }
     .section-tag {
-      font-family: 'Fira Code', monospace;
-      font-size: 11px; color: var(--green);
-      opacity: 0.7; margin-bottom: 0.4rem;
-      letter-spacing: 1px;
+      font-family: 'Fira Code', monospace; font-size: 11px;
+      color: var(--green); opacity: 0.7; margin-bottom: 0.4rem; letter-spacing: 1px;
     }
     .section-title { font-size: 22px; font-weight: 500; margin-bottom: 2rem; }
-
-    /* 3D CARD BASE */
-    .card-3d {
-      perspective: 1000px;
-    }
-    .card-3d-inner {
-      transition: transform 0.15s ease;
-      transform-style: preserve-3d;
-    }
 
     /* SKILLS */
     .skills-grid { display: flex; flex-wrap: wrap; gap: 10px; }
     .skill {
-      font-family: 'Fira Code', monospace;
-      font-size: 12px; padding: 6px 14px;
-      border-radius: 6px; border: 1px solid;
-      transition: transform 0.2s, box-shadow 0.2s;
-      cursor: default;
+      font-family: 'Fira Code', monospace; font-size: 12px;
+      padding: 6px 14px; border-radius: 6px; border: 1px solid;
+      transition: transform 0.2s, box-shadow 0.2s; cursor: none;
     }
     .skill:hover { transform: translateY(-3px) scale(1.05); }
-    .skill.js  { color: #f0db4f; border-color: #f0db4f25; background: #f0db4f08; }
-    .skill.js:hover { box-shadow: 0 4px 20px #f0db4f20; }
-    .skill.ts  { color: var(--blue); border-color: #58a6ff25; background: #58a6ff08; }
-    .skill.ts:hover { box-shadow: 0 4px 20px #58a6ff20; }
-    .skill.react { color: #61dafb; border-color: #61dafb25; background: #61dafb08; }
-    .skill.react:hover { box-shadow: 0 4px 20px #61dafb20; }
-    .skill.node { color: var(--green); border-color: #00ff8825; background: #00ff8808; }
-    .skill.node:hover { box-shadow: 0 4px 20px #00ff8820; }
-    .skill.python { color: var(--orange); border-color: #f0883e25; background: #f0883e08; }
-    .skill.python:hover { box-shadow: 0 4px 20px #f0883e20; }
-    .skill.other { color: var(--purple); border-color: #bc8cff25; background: #bc8cff08; }
-    .skill.other:hover { box-shadow: 0 4px 20px #bc8cff20; }
+    .skill.js  { color:#f0db4f; border-color:#f0db4f25; background:#f0db4f08; }
+    .skill.js:hover { box-shadow: 0 4px 20px #f0db4f25; }
+    .skill.ts  { color:var(--blue); border-color:#58a6ff25; background:#58a6ff08; }
+    .skill.ts:hover { box-shadow: 0 4px 20px #58a6ff25; }
+    .skill.react { color:#61dafb; border-color:#61dafb25; background:#61dafb08; }
+    .skill.react:hover { box-shadow: 0 4px 20px #61dafb25; }
+    .skill.node { color:var(--green); border-color:#00ff8825; background:#00ff8808; }
+    .skill.node:hover { box-shadow: 0 4px 20px #00ff8825; }
+    .skill.python { color:var(--orange); border-color:#f0883e25; background:#f0883e08; }
+    .skill.python:hover { box-shadow: 0 4px 20px #f0883e25; }
+    .skill.other { color:var(--purple); border-color:#bc8cff25; background:#bc8cff08; }
+    .skill.other:hover { box-shadow: 0 4px 20px #bc8cff25; }
 
     /* PROJECTS */
     .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
     .project-card {
-      background: #0d111799;
-      border: 1px solid #ffffff0f;
-      border-radius: 12px; padding: 1.5rem;
-      cursor: pointer;
-      transition: border-color 0.3s, box-shadow 0.3s;
+      background: #0d111799; border: 1px solid #ffffff0f;
+      border-radius: 12px; padding: 1.5rem; cursor: none;
+      transition: border-color 0.3s, box-shadow 0.3s, transform 0.15s;
       position: relative; overflow: hidden;
     }
     .project-card::after {
-      content: '';
-      position: absolute; inset: 0;
+      content: ''; position: absolute; inset: 0;
       background: radial-gradient(circle at var(--mx,50%) var(--my,50%), #00ff8808 0%, transparent 60%);
-      opacity: 0; transition: opacity 0.3s;
-      pointer-events: none;
+      opacity: 0; transition: opacity 0.3s; pointer-events: none;
     }
-    .project-card:hover { border-color: #00ff8840; box-shadow: 0 8px 40px #00ff8810; }
+    .project-card:hover { border-color: #00ff8840; box-shadow: 0 8px 40px #00ff8812; }
     .project-card:hover::after { opacity: 1; }
     .project-top { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
     .project-emoji { font-size: 22px; }
-    .project-name {
-      font-family: 'Fira Code', monospace;
-      font-size: 14px; font-weight: 500; color: var(--blue);
-    }
+    .project-name { font-family: 'Fira Code', monospace; font-size: 14px; font-weight: 500; color: var(--blue); }
     .project-desc { font-size: 13px; color: var(--text2); line-height: 1.65; margin-bottom: 14px; }
     .project-tags { display: flex; gap: 6px; flex-wrap: wrap; }
     .project-tag {
       font-family: 'Fira Code', monospace; font-size: 11px;
       padding: 2px 8px; background: #ffffff08;
-      color: var(--text2); border-radius: 4px;
-      border: 1px solid #ffffff10;
+      color: var(--text2); border-radius: 4px; border: 1px solid #ffffff10;
     }
 
     /* EXPERIENCE */
@@ -220,19 +253,14 @@
       font-family: 'Fira Code', monospace; font-size: 13px;
       line-height: 2.1; margin-bottom: 1.5rem;
     }
-    .c-p { color: var(--purple); }
-    .c-b { color: var(--blue); }
-    .c-g { color: var(--green); }
-    .c-o { color: var(--orange); }
-    .c-d { color: var(--text2); }
+    .c-p{color:var(--purple)} .c-b{color:var(--blue)} .c-g{color:var(--green)} .c-o{color:var(--orange)} .c-d{color:var(--text2)}
     .contact-links { display: flex; gap: 10px; flex-wrap: wrap; }
     .contact-link {
       display: flex; align-items: center; gap: 8px;
       font-family: 'Fira Code', monospace; font-size: 13px;
-      padding: 9px 18px;
-      background: #ffffff05; border: 1px solid #ffffff12;
-      border-radius: 8px; color: var(--text2);
-      text-decoration: none;
+      padding: 9px 18px; background: #ffffff05;
+      border: 1px solid #ffffff12; border-radius: 8px;
+      color: var(--text2); text-decoration: none; cursor: none;
       transition: all 0.2s;
     }
     .contact-link:hover { border-color: var(--green); color: var(--green); background: #00ff8808; box-shadow: 0 0 15px #00ff8810; }
@@ -242,21 +270,60 @@
       padding: 1.5rem 2rem; text-align: center;
       font-family: 'Fira Code', monospace; font-size: 12px; color: var(--text2);
     }
-    footer .heart { color: var(--red); }
-    footer .name { color: var(--green); }
+
+    /* SPARK */
+    .spark {
+      position: fixed; pointer-events: none; z-index: 9997;
+      width: 5px; height: 5px; border-radius: 50%;
+      transform: translate(-50%, -50%);
+    }
 
     @media (max-width: 600px) {
+      body { cursor: auto; }
+      #cursor, #cursor-ring { display: none; }
       nav { padding: 0.75rem 1rem; }
-      .nav-links { gap: 0.75rem; }
-      .hero { padding: 3.5rem 1rem 3rem; }
+      .hero { padding: 3rem 1rem 2.5rem; }
       section { padding: 2.5rem 1rem; }
       .exp-item { grid-template-columns: 1fr; gap: 2px; }
+      .slider-wrap { height: 220px; }
     }
   </style>
 </head>
 <body>
 
-<canvas id="bg-canvas"></canvas>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<canvas id="star-canvas"></canvas>
+
+<!-- SLIDER -->
+<div class="slider-wrap" id="slider">
+  <div class="slide slide-1 active">
+    <div class="slide-badge">OPEN TO WORK</div>
+    <div class="slide-title">Full-stack Developer</div>
+    <div class="slide-sub">React · Node.js · Python · AWS</div>
+  </div>
+  <div class="slide slide-2">
+    <div class="slide-badge">IT STEP PROJECT</div>
+    <div class="slide-title">Python Web App</div>
+    <div class="slide-sub">Flask · HTML · CSS · JavaScript</div>
+  </div>
+  <div class="slide slide-3">
+    <div class="slide-badge">AVAILABLE NOW</div>
+    <div class="slide-title">გია მამულაშვილი</div>
+    <div class="slide-sub">Tbilisi, Georgia 🇬🇪</div>
+  </div>
+  <div class="slide slide-4">
+    <div class="slide-badge">LATEST STACK</div>
+    <div class="slide-title">Building Cool Stuff</div>
+    <div class="slide-sub">3+ years experience · 10+ projects</div>
+  </div>
+  <div class="slider-dots">
+    <div class="dot active" onclick="goSlide(0)"></div>
+    <div class="dot" onclick="goSlide(1)"></div>
+    <div class="dot" onclick="goSlide(2)"></div>
+    <div class="dot" onclick="goSlide(3)"></div>
+  </div>
+</div>
 
 <nav>
   <div class="nav-logo"><span>~/</span>gia-portfolio</div>
@@ -276,7 +343,7 @@
     &nbsp;&nbsp;location: <span style="color:var(--orange)">"Tbilisi, Georgia 🇬🇪"</span><br>
     }
   </div>
-  <h1>გამარჯობა,<br>მე ვარ <span class="name">გია</span><span class="cursor"></span></h1>
+  <h1>გამარჯობა,<br>მე ვარ <span class="name">გია</span><span class="cursor-blink"></span></h1>
   <p class="hero-sub">ვქმნი <span class="hl">სწრაფ</span> და <span class="hl">გამოყენებად</span> ვებ-აპლიკაციებს. კოდი — ჩემი ენა.</p>
   <div class="hero-btns">
     <a href="#projects" class="btn-green">$ ls ./projects</a>
@@ -309,6 +376,19 @@
   <div class="projects-grid">
     <div class="project-card" onmousemove="tilt(event,this)" onmouseleave="resetTilt(this)">
       <div class="project-top">
+        <span class="project-emoji">🐍</span>
+        <span class="project-name">IT_Step_project</span>
+      </div>
+      <p class="project-desc">IT Step-ის ფარგლებში შექმნილი Python ვებ-აპლიკაცია სრული backend და frontend-ით.</p>
+      <div class="project-tags">
+        <span class="project-tag">Python</span>
+        <span class="project-tag">HTML/CSS</span>
+        <span class="project-tag">JavaScript</span>
+        <a href="https://github.com/geoshavi/IT_Step_project" target="_blank" style="font-family:'Fira Code',monospace;font-size:11px;padding:2px 8px;background:#00ff8810;color:var(--green);border-radius:4px;border:1px solid #00ff8830;text-decoration:none;">🔗 GitHub</a>
+      </div>
+    </div>
+    <div class="project-card" onmousemove="tilt(event,this)" onmouseleave="resetTilt(this)">
+      <div class="project-top">
         <span class="project-emoji">🛒</span>
         <span class="project-name">e-commerce-platform</span>
       </div>
@@ -317,7 +397,6 @@
         <span class="project-tag">React</span>
         <span class="project-tag">Node.js</span>
         <span class="project-tag">Stripe</span>
-        <span class="project-tag">MongoDB</span>
       </div>
     </div>
     <div class="project-card" onmousemove="tilt(event,this)" onmouseleave="resetTilt(this)">
@@ -325,23 +404,11 @@
         <span class="project-emoji">💬</span>
         <span class="project-name">realtime-chat</span>
       </div>
-      <p class="project-desc">WebSocket-ზე დაფუძნებული ჩატი ჯგუფური ოთახებით, ფაილების გაზიარებით და end-to-end encryption-ით.</p>
+      <p class="project-desc">WebSocket-ზე დაფუძნებული ჩატი ჯგუფური ოთახებით და ფაილების გაზიარებით.</p>
       <div class="project-tags">
         <span class="project-tag">Next.js</span>
         <span class="project-tag">Socket.io</span>
         <span class="project-tag">Redis</span>
-      </div>
-    </div>
-    <div class="project-card" onmousemove="tilt(event,this)" onmouseleave="resetTilt(this)">
-      <div class="project-top">
-        <span class="project-emoji">📊</span>
-        <span class="project-name">analytics-dashboard</span>
-      </div>
-      <p class="project-desc">მონაცემების ვიზუალიზაციის პანელი, ინტეგრირებული გარე API-სთან და AI-ზე დაფუძნებული პროგნოზებით.</p>
-      <div class="project-tags">
-        <span class="project-tag">Python</span>
-        <span class="project-tag">FastAPI</span>
-        <span class="project-tag">D3.js</span>
       </div>
     </div>
   </div>
@@ -394,130 +461,148 @@
 </section>
 
 <footer>
-  made with <span class="heart">♥</span> &amp; ☕ by <span class="name">geoshavi</span> // 2025
+  made with <span style="color:var(--red)">♥</span> &amp; ☕ by <span style="color:var(--green)">geoshavi</span> // 2025
 </footer>
 
 <script>
-// ANIMATED PARTICLE BACKGROUND
-const canvas = document.getElementById('bg-canvas');
-const ctx = canvas.getContext('2d');
-let W, H, particles = [], mouse = {x: -999, y: -999};
+// CURSOR
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx = 0, my = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px';
+  cursor.style.top = my + 'px';
+  ring.style.left = mx + 'px';
+  ring.style.top = my + 'px';
+  spawnSpark(mx, my);
+});
 
-function resize() {
-  W = canvas.width = window.innerWidth;
-  H = canvas.height = window.innerHeight;
+// SPARKS
+const sparkColors = ['#00ff88','#58a6ff','#bc8cff','#f0883e','#ffffff'];
+let lastSpark = 0;
+function spawnSpark(x, y) {
+  const now = Date.now();
+  if (now - lastSpark < 30) return;
+  lastSpark = now;
+  const s = document.createElement('div');
+  s.className = 'spark';
+  const color = sparkColors[Math.floor(Math.random() * sparkColors.length)];
+  const size = Math.random() * 5 + 2;
+  s.style.cssText = `left:${x}px;top:${y}px;width:${size}px;height:${size}px;background:${color};box-shadow:0 0 6px ${color};`;
+  document.body.appendChild(s);
+  const angle = Math.random() * Math.PI * 2;
+  const speed = Math.random() * 60 + 20;
+  const vx = Math.cos(angle) * speed;
+  const vy = Math.sin(angle) * speed;
+  let opacity = 1, px = x, py = y, t = 0;
+  function anim() {
+    t += 0.05;
+    px += vx * 0.05;
+    py += vy * 0.05 + t * 2;
+    opacity -= 0.04;
+    s.style.left = px + 'px';
+    s.style.top = py + 'px';
+    s.style.opacity = opacity;
+    if (opacity > 0) requestAnimationFrame(anim);
+    else s.remove();
+  }
+  requestAnimationFrame(anim);
 }
+
+// STAR BACKGROUND
+const canvas = document.getElementById('star-canvas');
+const ctx = canvas.getContext('2d');
+let W, H;
+function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
 resize();
 window.addEventListener('resize', resize);
 
-window.addEventListener('mousemove', e => {
-  mouse.x = e.clientX;
-  mouse.y = e.clientY;
-});
+const stars = Array.from({length: 150}, () => ({
+  x: Math.random() * window.innerWidth,
+  y: Math.random() * window.innerHeight,
+  r: Math.random() * 1.2 + 0.2,
+  alpha: Math.random() * 0.6 + 0.1,
+  twinkleSpeed: Math.random() * 0.02 + 0.005,
+  twinkleOffset: Math.random() * Math.PI * 2,
+  color: Math.random() > 0.85 ? '#58a6ff' : Math.random() > 0.7 ? '#bc8cff' : '#ffffff'
+}));
 
-// Create particles
-for (let i = 0; i < 80; i++) {
-  particles.push({
-    x: Math.random() * window.innerWidth,
-    y: Math.random() * window.innerHeight,
-    vx: (Math.random() - 0.5) * 0.3,
-    vy: (Math.random() - 0.5) * 0.3,
-    r: Math.random() * 1.5 + 0.3,
-    alpha: Math.random() * 0.4 + 0.1,
-    color: Math.random() > 0.7 ? '#00ff88' : Math.random() > 0.5 ? '#58a6ff' : '#bc8cff'
-  });
-}
-
-function drawFrame() {
+let frame = 0;
+function drawStars() {
   ctx.clearRect(0, 0, W, H);
+  frame += 0.016;
 
-  // Grid lines
-  ctx.strokeStyle = '#ffffff04';
+  // Grid
+  ctx.strokeStyle = '#ffffff03';
   ctx.lineWidth = 1;
-  const gridSize = 60;
-  for (let x = 0; x < W; x += gridSize) {
-    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
-  }
-  for (let y = 0; y < H; y += gridSize) {
-    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
-  }
+  for (let x = 0; x < W; x += 70) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke(); }
+  for (let y = 0; y < H; y += 70) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
 
-  // Particles
-  particles.forEach(p => {
-    p.x += p.vx; p.y += p.vy;
-    if (p.x < 0) p.x = W;
-    if (p.x > W) p.x = 0;
-    if (p.y < 0) p.y = H;
-    if (p.y > H) p.y = 0;
-
+  // Stars
+  stars.forEach(s => {
+    const twinkle = Math.sin(frame * s.twinkleSpeed * 60 + s.twinkleOffset) * 0.3 + 0.7;
     ctx.beginPath();
-    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-    ctx.fillStyle = p.color + Math.floor(p.alpha * 255).toString(16).padStart(2,'0');
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    ctx.fillStyle = s.color + Math.floor(s.alpha * twinkle * 255).toString(16).padStart(2,'0');
     ctx.fill();
-  });
-
-  // Connect nearby particles
-  for (let i = 0; i < particles.length; i++) {
-    for (let j = i + 1; j < particles.length; j++) {
-      const dx = particles[i].x - particles[j].x;
-      const dy = particles[i].y - particles[j].y;
-      const dist = Math.sqrt(dx*dx + dy*dy);
-      if (dist < 100) {
-        ctx.beginPath();
-        ctx.moveTo(particles[i].x, particles[i].y);
-        ctx.lineTo(particles[j].x, particles[j].y);
-        ctx.strokeStyle = `rgba(0,255,136,${0.06 * (1 - dist/100)})`;
-        ctx.lineWidth = 0.5;
-        ctx.stroke();
-      }
+    if (s.r > 0.9) {
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r * 2.5, 0, Math.PI * 2);
+      ctx.fillStyle = s.color + '08';
+      ctx.fill();
     }
-  }
+  });
 
   // Mouse glow
-  const grad = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 150);
-  grad.addColorStop(0, 'rgba(0,255,136,0.04)');
+  const grad = ctx.createRadialGradient(mx, my, 0, mx, my, 180);
+  grad.addColorStop(0, 'rgba(0,255,136,0.05)');
   grad.addColorStop(1, 'transparent');
   ctx.fillStyle = grad;
   ctx.fillRect(0, 0, W, H);
 
-  requestAnimationFrame(drawFrame);
+  requestAnimationFrame(drawStars);
 }
-drawFrame();
+drawStars();
 
-// 3D TILT on project cards
+// SLIDER
+let slideIdx = 0;
+const slides = document.querySelectorAll('.slide');
+const dots = document.querySelectorAll('.dot');
+function goSlide(i) {
+  slides[slideIdx].classList.remove('active');
+  dots[slideIdx].classList.remove('active');
+  slideIdx = i;
+  slides[slideIdx].classList.add('active');
+  dots[slideIdx].classList.add('active');
+}
+setInterval(() => goSlide((slideIdx + 1) % slides.length), 3500);
+
+// 3D TILT
 function tilt(e, card) {
-  const rect = card.getBoundingClientRect();
-  const cx = rect.left + rect.width / 2;
-  const cy = rect.top + rect.height / 2;
-  const dx = (e.clientX - cx) / (rect.width / 2);
-  const dy = (e.clientY - cy) / (rect.height / 2);
-  card.style.transform = `perspective(600px) rotateY(${dx * 8}deg) rotateX(${-dy * 8}deg) translateZ(10px)`;
+  const r = card.getBoundingClientRect();
+  const dx = (e.clientX - r.left - r.width/2) / (r.width/2);
+  const dy = (e.clientY - r.top - r.height/2) / (r.height/2);
+  card.style.transform = `perspective(600px) rotateY(${dx*8}deg) rotateX(${-dy*8}deg) translateZ(10px)`;
   card.style.transition = 'transform 0.05s';
-  const mx = ((e.clientX - rect.left) / rect.width * 100).toFixed(1);
-  const my = ((e.clientY - rect.top) / rect.height * 100).toFixed(1);
-  card.style.setProperty('--mx', mx + '%');
-  card.style.setProperty('--my', my + '%');
+  card.style.setProperty('--mx', ((e.clientX-r.left)/r.width*100).toFixed(1)+'%');
+  card.style.setProperty('--my', ((e.clientY-r.top)/r.height*100).toFixed(1)+'%');
 }
 function resetTilt(card) {
-  card.style.transform = 'perspective(600px) rotateY(0deg) rotateX(0deg) translateZ(0)';
+  card.style.transform = 'perspective(600px) rotateY(0) rotateX(0) translateZ(0)';
   card.style.transition = 'transform 0.4s ease';
 }
 
-// Scroll reveal
-const observer = new IntersectionObserver(entries => {
+// SCROLL REVEAL
+const obs = new IntersectionObserver(entries => {
   entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.style.opacity = '1';
-      e.target.style.transform = 'translateY(0)';
-    }
+    if (e.isIntersecting) { e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; }
   });
-}, { threshold: 0.1 });
-
+}, {threshold: 0.08});
 document.querySelectorAll('section, .hero').forEach(el => {
-  el.style.opacity = '0';
-  el.style.transform = 'translateY(24px)';
-  el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-  observer.observe(el);
+  el.style.opacity='0'; el.style.transform='translateY(28px)';
+  el.style.transition='opacity 0.6s ease, transform 0.6s ease';
+  obs.observe(el);
 });
 </script>
 </body>
