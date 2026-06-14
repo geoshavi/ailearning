@@ -1,609 +1,199 @@
 <!DOCTYPE html>
 <html lang="ka">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>გია მამულაშვილი — dev portfolio</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    :root {
-      --bg: #060912;
-      --bg2: #0d1117;
-      --bg3: #161b22;
-      --green: #00ff88;
-      --blue: #58a6ff;
-      --purple: #bc8cff;
-      --orange: #f0883e;
-      --red: #ff7b72;
-      --text: #e6edf3;
-      --text2: #8b949e;
-      --border: #21262d;
-    }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.7;
-      overflow-x: hidden;
-      cursor: none;
-    }
-    ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 2px; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Baby Pink Shop</title>
 
-    /* CUSTOM CURSOR */
-    #cursor {
-      position: fixed; pointer-events: none; z-index: 9999;
-      width: 18px; height: 18px;
-      border-radius: 50%;
-      background: var(--green);
-      box-shadow: 0 0 12px var(--green), 0 0 30px #00ff8860;
-      transform: translate(-50%, -50%);
-      transition: transform 0.08s, width 0.2s, height 0.2s;
-      mix-blend-mode: screen;
-    }
-    #cursor-ring {
-      position: fixed; pointer-events: none; z-index: 9998;
-      width: 36px; height: 36px;
-      border-radius: 50%;
-      border: 1px solid #00ff8870;
-      transform: translate(-50%, -50%);
-      transition: left 0.12s ease, top 0.12s ease;
-    }
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
 
-    /* STARS */
-    #star-canvas {
-      position: fixed; top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: 0; pointer-events: none;
-    }
+body{
+    background:#fff5f8;
+}
 
-    nav, .hero, section, footer { position: relative; z-index: 1; }
+header{
+    background:linear-gradient(90deg,#ff8fb1,#ffb6c1);
+    color:white;
+    text-align:center;
+    padding:30px;
+}
 
-    /* HERO SLIDER */
-    .slider-wrap {
-      position: relative; z-index: 1;
-      width: 100%; height: 280px;
-      overflow: hidden;
-    }
-    .slide {
-      position: absolute; inset: 0;
-      display: flex; align-items: center; justify-content: center;
-      opacity: 0; transition: opacity 0.8s ease;
-      flex-direction: column; gap: 10px;
-    }
-    .slide.active { opacity: 1; }
-    .slide-1 { background: linear-gradient(135deg, #0d1117 0%, #0f2027 50%, #203a43 100%); }
-    .slide-2 { background: linear-gradient(135deg, #0d1117 0%, #1a0533 50%, #2d0b6b 100%); }
-    .slide-3 { background: linear-gradient(135deg, #0d1117 0%, #0a2a1a 50%, #003d1f 100%); }
-    .slide-4 { background: linear-gradient(135deg, #0d1117 0%, #1f0a00 50%, #3d1a00 100%); }
-    .slide-badge {
-      font-family: 'Fira Code', monospace;
-      font-size: 11px; letter-spacing: 2px;
-      padding: 4px 14px; border-radius: 20px;
-      border: 1px solid;
-    }
-    .slide-title {
-      font-family: 'Fira Code', monospace;
-      font-size: clamp(20px, 4vw, 32px);
-      font-weight: 600; text-align: center;
-    }
-    .slide-sub { font-size: 14px; color: var(--text2); text-align: center; }
-    .slide-1 .slide-badge { color: var(--blue); border-color: var(--blue); }
-    .slide-1 .slide-title { color: var(--blue); text-shadow: 0 0 30px #58a6ff60; }
-    .slide-2 .slide-badge { color: var(--purple); border-color: var(--purple); }
-    .slide-2 .slide-title { color: var(--purple); text-shadow: 0 0 30px #bc8cff60; }
-    .slide-3 .slide-badge { color: var(--green); border-color: var(--green); }
-    .slide-3 .slide-title { color: var(--green); text-shadow: 0 0 30px #00ff8860; }
-    .slide-4 .slide-badge { color: var(--orange); border-color: var(--orange); }
-    .slide-4 .slide-title { color: var(--orange); text-shadow: 0 0 30px #f0883e60; }
-    .slider-dots {
-      position: absolute; bottom: 14px; left: 50%;
-      transform: translateX(-50%);
-      display: flex; gap: 8px; z-index: 2;
-    }
-    .dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: #ffffff30; cursor: pointer;
-      transition: background 0.3s, transform 0.3s;
-    }
-    .dot.active { background: var(--green); transform: scale(1.3); }
+header h1{
+    font-size:40px;
+}
 
-    /* NAV */
-    nav {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 1rem 2rem;
-      border-bottom: 1px solid #ffffff0a;
-      background: rgba(6,9,18,0.9);
-      backdrop-filter: blur(12px);
-      position: sticky; top: 0; z-index: 100;
-    }
-    .nav-logo { font-family: 'Fira Code', monospace; font-size: 14px; color: var(--green); }
-    .nav-logo span { color: var(--text2); }
-    .nav-links { display: flex; gap: 1.5rem; }
-    .nav-links a {
-      font-family: 'Fira Code', monospace; font-size: 12px;
-      color: var(--text2); text-decoration: none; transition: color 0.2s;
-    }
-    .nav-links a::before { content: './'; color: var(--green); opacity: 0.5; }
-    .nav-links a:hover { color: var(--green); }
+nav{
+    background:white;
+    padding:15px;
+    text-align:center;
+    box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
 
-    /* HERO */
-    .hero {
-      padding: 5rem 2rem 4rem;
-      border-bottom: 1px solid #ffffff08;
-      max-width: 900px;
-    }
-    .hero-pre {
-      font-family: 'Fira Code', monospace; font-size: 13px;
-      color: var(--text2); margin-bottom: 1.5rem;
-      background: #ffffff05; border: 1px solid #ffffff0a;
-      border-radius: 8px; padding: 1rem 1.25rem;
-      display: inline-block; line-height: 2;
-    }
-    .hero h1 {
-      font-family: 'Fira Code', monospace;
-      font-size: clamp(28px, 5vw, 50px);
-      font-weight: 600; line-height: 1.15; margin-bottom: 1rem;
-    }
-    .hero h1 .name { color: var(--green); text-shadow: 0 0 30px #00ff8855; }
-    .cursor-blink {
-      display: inline-block; width: 3px; height: 0.85em;
-      background: var(--green); vertical-align: text-bottom;
-      margin-left: 3px; animation: blink 1s step-end infinite;
-      box-shadow: 0 0 8px var(--green);
-    }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-    .hero-sub { font-size: 16px; color: var(--text2); max-width: 520px; margin-bottom: 2.5rem; }
-    .hero-sub .hl { color: var(--blue); }
-    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
-    .btn-green {
-      font-family: 'Fira Code', monospace; font-size: 13px;
-      padding: 10px 22px; background: #00ff8815;
-      border: 1px solid var(--green); color: var(--green);
-      border-radius: 6px; cursor: none; text-decoration: none;
-      transition: all 0.2s; box-shadow: 0 0 15px #00ff8815;
-    }
-    .btn-green:hover { background: #00ff8828; box-shadow: 0 0 25px #00ff8830; }
-    .btn-ghost {
-      font-family: 'Fira Code', monospace; font-size: 13px;
-      padding: 10px 22px; background: transparent;
-      border: 1px solid #ffffff18; color: var(--text2);
-      border-radius: 6px; cursor: none; text-decoration: none;
-      transition: all 0.2s;
-    }
-    .btn-ghost:hover { border-color: var(--text2); color: var(--text); }
+nav a{
+    text-decoration:none;
+    color:#ff4f8b;
+    margin:0 15px;
+    font-weight:bold;
+}
 
-    /* SECTIONS */
-    section { padding: 4rem 2rem; border-bottom: 1px solid #ffffff08; }
-    .section-tag {
-      font-family: 'Fira Code', monospace; font-size: 11px;
-      color: var(--green); opacity: 0.7; margin-bottom: 0.4rem; letter-spacing: 1px;
-    }
-    .section-title { font-size: 22px; font-weight: 500; margin-bottom: 2rem; }
+.hero{
+    text-align:center;
+    padding:60px 20px;
+}
 
-    /* SKILLS */
-    .skills-grid { display: flex; flex-wrap: wrap; gap: 10px; }
-    .skill {
-      font-family: 'Fira Code', monospace; font-size: 12px;
-      padding: 6px 14px; border-radius: 6px; border: 1px solid;
-      transition: transform 0.2s, box-shadow 0.2s; cursor: none;
-    }
-    .skill:hover { transform: translateY(-3px) scale(1.05); }
-    .skill.js  { color:#f0db4f; border-color:#f0db4f25; background:#f0db4f08; }
-    .skill.js:hover { box-shadow: 0 4px 20px #f0db4f25; }
-    .skill.ts  { color:var(--blue); border-color:#58a6ff25; background:#58a6ff08; }
-    .skill.ts:hover { box-shadow: 0 4px 20px #58a6ff25; }
-    .skill.react { color:#61dafb; border-color:#61dafb25; background:#61dafb08; }
-    .skill.react:hover { box-shadow: 0 4px 20px #61dafb25; }
-    .skill.node { color:var(--green); border-color:#00ff8825; background:#00ff8808; }
-    .skill.node:hover { box-shadow: 0 4px 20px #00ff8825; }
-    .skill.python { color:var(--orange); border-color:#f0883e25; background:#f0883e08; }
-    .skill.python:hover { box-shadow: 0 4px 20px #f0883e25; }
-    .skill.other { color:var(--purple); border-color:#bc8cff25; background:#bc8cff08; }
-    .skill.other:hover { box-shadow: 0 4px 20px #bc8cff25; }
+.hero h2{
+    color:#ff4f8b;
+    font-size:38px;
+}
 
-    /* PROJECTS */
-    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
-    .project-card {
-      background: #0d111799; border: 1px solid #ffffff0f;
-      border-radius: 12px; padding: 1.5rem; cursor: none;
-      transition: border-color 0.3s, box-shadow 0.3s, transform 0.15s;
-      position: relative; overflow: hidden;
-    }
-    .project-card::after {
-      content: ''; position: absolute; inset: 0;
-      background: radial-gradient(circle at var(--mx,50%) var(--my,50%), #00ff8808 0%, transparent 60%);
-      opacity: 0; transition: opacity 0.3s; pointer-events: none;
-    }
-    .project-card:hover { border-color: #00ff8840; box-shadow: 0 8px 40px #00ff8812; }
-    .project-card:hover::after { opacity: 1; }
-    .project-top { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-    .project-emoji { font-size: 22px; }
-    .project-name { font-family: 'Fira Code', monospace; font-size: 14px; font-weight: 500; color: var(--blue); }
-    .project-desc { font-size: 13px; color: var(--text2); line-height: 1.65; margin-bottom: 14px; }
-    .project-tags { display: flex; gap: 6px; flex-wrap: wrap; }
-    .project-tag {
-      font-family: 'Fira Code', monospace; font-size: 11px;
-      padding: 2px 8px; background: #ffffff08;
-      color: var(--text2); border-radius: 4px; border: 1px solid #ffffff10;
-    }
+.hero p{
+    margin-top:15px;
+    color:#555;
+    font-size:18px;
+}
 
-    /* EXPERIENCE */
-    .exp-list { display: flex; flex-direction: column; }
-    .exp-item {
-      display: grid; grid-template-columns: 110px 1fr;
-      gap: 1rem; padding: 1.1rem 0;
-      border-bottom: 1px solid #ffffff08;
-      transition: padding-left 0.2s;
-    }
-    .exp-item:hover { padding-left: 8px; }
-    .exp-item:last-child { border-bottom: none; }
-    .exp-year { font-family: 'Fira Code', monospace; font-size: 11px; color: var(--text2); padding-top: 3px; }
-    .exp-role { font-size: 14px; font-weight: 500; }
-    .exp-company { font-family: 'Fira Code', monospace; font-size: 12px; color: var(--green); margin-top: 2px; }
+.btn{
+    display:inline-block;
+    margin-top:20px;
+    background:#ff4f8b;
+    color:white;
+    padding:15px 30px;
+    border-radius:30px;
+    text-decoration:none;
+}
 
-    /* CONTACT */
-    .contact-code {
-      background: #0d111799; border: 1px solid #ffffff0f;
-      border-radius: 10px; padding: 1.5rem;
-      font-family: 'Fira Code', monospace; font-size: 13px;
-      line-height: 2.1; margin-bottom: 1.5rem;
-    }
-    .c-p{color:var(--purple)} .c-b{color:var(--blue)} .c-g{color:var(--green)} .c-o{color:var(--orange)} .c-d{color:var(--text2)}
-    .contact-links { display: flex; gap: 10px; flex-wrap: wrap; }
-    .contact-link {
-      display: flex; align-items: center; gap: 8px;
-      font-family: 'Fira Code', monospace; font-size: 13px;
-      padding: 9px 18px; background: #ffffff05;
-      border: 1px solid #ffffff12; border-radius: 8px;
-      color: var(--text2); text-decoration: none; cursor: none;
-      transition: all 0.2s;
-    }
-    .contact-link:hover { border-color: var(--green); color: var(--green); background: #00ff8808; box-shadow: 0 0 15px #00ff8810; }
+.products{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+    padding:50px;
+}
 
-    footer {
-      position: relative; z-index: 1;
-      padding: 1.5rem 2rem; text-align: center;
-      font-family: 'Fira Code', monospace; font-size: 12px; color: var(--text2);
-    }
+.card{
+    background:white;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    transition:0.3s;
+}
 
-    /* SPARK */
-    .spark {
-      position: fixed; pointer-events: none; z-index: 9997;
-      width: 5px; height: 5px; border-radius: 50%;
-      transform: translate(-50%, -50%);
-    }
+.card:hover{
+    transform:translateY(-10px);
+}
 
-    @media (max-width: 600px) {
-      body { cursor: auto; }
-      #cursor, #cursor-ring { display: none; }
-      nav { padding: 0.75rem 1rem; }
-      .hero { padding: 3rem 1rem 2.5rem; }
-      section { padding: 2.5rem 1rem; }
-      .exp-item { grid-template-columns: 1fr; gap: 2px; }
-      .slider-wrap { height: 220px; }
-    }
-  </style>
+.card img{
+    width:100%;
+    height:250px;
+    object-fit:cover;
+}
+
+.card h3{
+    padding:15px;
+    color:#ff4f8b;
+}
+
+.card p{
+    padding:0 15px 15px;
+    color:#666;
+}
+
+.price{
+    color:#ff4f8b;
+    font-size:22px;
+    font-weight:bold;
+    padding:0 15px 20px;
+}
+
+.about{
+    padding:60px;
+    text-align:center;
+}
+
+.about h2{
+    color:#ff4f8b;
+    margin-bottom:20px;
+}
+
+footer{
+    background:#ffb6c1;
+    color:white;
+    text-align:center;
+    padding:25px;
+}
+</style>
 </head>
 <body>
 
-<div id="cursor"></div>
-<div id="cursor-ring"></div>
-<canvas id="star-canvas"></canvas>
-
-<!-- SLIDER -->
-<div class="slider-wrap" id="slider">
-  <div class="slide slide-1 active">
-    <div class="slide-badge">OPEN TO WORK</div>
-    <div class="slide-title">Full-stack Developer</div>
-    <div class="slide-sub">React · Node.js · Python · AWS</div>
-  </div>
-  <div class="slide slide-2">
-    <div class="slide-badge">IT STEP PROJECT</div>
-    <div class="slide-title">Python Web App</div>
-    <div class="slide-sub">Flask · HTML · CSS · JavaScript</div>
-  </div>
-  <div class="slide slide-3">
-    <div class="slide-badge">AVAILABLE NOW</div>
-    <div class="slide-title">გია მამულაშვილი</div>
-    <div class="slide-sub">Tbilisi, Georgia 🇬🇪</div>
-  </div>
-  <div class="slide slide-4">
-    <div class="slide-badge">LATEST STACK</div>
-    <div class="slide-title">Building Cool Stuff</div>
-    <div class="slide-sub">3+ years experience · 10+ projects</div>
-  </div>
-  <div class="slider-dots">
-    <div class="dot active" onclick="goSlide(0)"></div>
-    <div class="dot" onclick="goSlide(1)"></div>
-    <div class="dot" onclick="goSlide(2)"></div>
-    <div class="dot" onclick="goSlide(3)"></div>
-  </div>
-</div>
+<header>
+    <h1>🎀 Baby Pink Shop 🎀</h1>
+    <p>საბავშვო ტანსაცმელი, სათამაშოები და აქსესუარები</p>
+</header>
 
 <nav>
-  <div class="nav-logo"><span>~/</span>gia-portfolio</div>
-  <div class="nav-links">
-    <a href="#about">about</a>
-    <a href="#projects">projects</a>
-    <a href="#experience">exp</a>
-    <a href="#contact">contact</a>
-  </div>
+    <a href="#">მთავარი</a>
+    <a href="#">პროდუქტები</a>
+    <a href="#">ფასდაკლებები</a>
+    <a href="#">ჩვენ შესახებ</a>
+    <a href="#">კონტაქტი</a>
 </nav>
 
-<div class="hero" id="about">
-  <div class="hero-pre">
-    <span style="color:var(--purple)">const</span> <span style="color:var(--blue)">developer</span> <span style="color:var(--text2)">=</span> {<br>
-    &nbsp;&nbsp;name: <span style="color:var(--orange)">"გია მამულაშვილი"</span>,<br>
-    &nbsp;&nbsp;role: <span style="color:var(--orange)">"Full-stack Developer"</span>,<br>
-    &nbsp;&nbsp;location: <span style="color:var(--orange)">"Tbilisi, Georgia 🇬🇪"</span><br>
-    }
-  </div>
-  <h1>გამარჯობა,<br>მე ვარ <span class="name">გია</span><span class="cursor-blink"></span></h1>
-  <p class="hero-sub">ვქმნი <span class="hl">სწრაფ</span> და <span class="hl">გამოყენებად</span> ვებ-აპლიკაციებს. კოდი — ჩემი ენა.</p>
-  <div class="hero-btns">
-    <a href="#projects" class="btn-green">$ ls ./projects</a>
-    <a href="#contact" class="btn-ghost">$ git contact --open</a>
-  </div>
+<section class="hero">
+    <h2>ყველაფერი თქვენი პატარებისთვის 💖</h2>
+    <p>უმაღლესი ხარისხის საბავშვო პროდუქცია საუკეთესო ფასებში</p>
+    <a href="#" class="btn">შეიძინე ახლავე</a>
+</section>
+
+<section class="products">
+
+<div class="card">
+    <img src="https://images.unsplash.com/photo-1515488764276-beab7607c1e6" alt="">
+    <h3>ვარდისფერი კაბა</h3>
+    <p>რბილი და კომფორტული საბავშვო კაბა.</p>
+    <div class="price">$29</div>
 </div>
 
-<section id="skills">
-  <div class="section-tag">// tech_stack</div>
-  <div class="section-title">ტექნოლოგიები</div>
-  <div class="skills-grid">
-    <span class="skill js">⚡ JavaScript</span>
-    <span class="skill ts">🔷 TypeScript</span>
-    <span class="skill react">⚛️ React</span>
-    <span class="skill react">▲ Next.js</span>
-    <span class="skill node">🟢 Node.js</span>
-    <span class="skill python">🐍 Python</span>
-    <span class="skill python">🚀 FastAPI</span>
-    <span class="skill other">🐘 PostgreSQL</span>
-    <span class="skill other">🐳 Docker</span>
-    <span class="skill other">☁️ AWS</span>
-    <span class="skill other">🔀 Git</span>
-    <span class="skill ts">🎨 Tailwind</span>
-  </div>
+<div class="card">
+    <img src="https://images.unsplash.com/photo-1519238263530-99bdd11df2ea" alt="">
+    <h3>პლუშის დათუნია</h3>
+    <p>უსაყვარლესი რბილი სათამაშო.</p>
+    <div class="price">$19</div>
+</div>
+
+<div class="card">
+    <img src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef" alt="">
+    <h3>საბავშვო ფეხსაცმელი</h3>
+    <p>მოდური და კომფორტული ფეხსაცმელი.</p>
+    <div class="price">$39</div>
+</div>
+
+<div class="card">
+    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9" alt="">
+    <h3>საბავშვო სათამაშო ნაკრები</h3>
+    <p>შემეცნებითი და გასართობი სათამაშოები.</p>
+    <div class="price">$24</div>
+</div>
+
 </section>
 
-<section id="projects">
-  <div class="section-tag">// featured_projects</div>
-  <div class="section-title">პროექტები</div>
-  <div class="projects-grid">
-    <div class="project-card" onmousemove="tilt(event,this)" onmouseleave="resetTilt(this)">
-      <div class="project-top">
-        <span class="project-emoji">🐍</span>
-        <span class="project-name">IT_Step_project</span>
-      </div>
-      <p class="project-desc">IT Step-ის ფარგლებში შექმნილი Python ვებ-აპლიკაცია სრული backend და frontend-ით.</p>
-      <div class="project-tags">
-        <span class="project-tag">Python</span>
-        <span class="project-tag">HTML/CSS</span>
-        <span class="project-tag">JavaScript</span>
-        <a href="https://github.com/geoshavi/IT_Step_project" target="_blank" style="font-family:'Fira Code',monospace;font-size:11px;padding:2px 8px;background:#00ff8810;color:var(--green);border-radius:4px;border:1px solid #00ff8830;text-decoration:none;">🔗 GitHub</a>
-      </div>
-    </div>
-    <div class="project-card" onmousemove="tilt(event,this)" onmouseleave="resetTilt(this)">
-      <div class="project-top">
-        <span class="project-emoji">🛒</span>
-        <span class="project-name">e-commerce-platform</span>
-      </div>
-      <p class="project-desc">სრული ონლაინ მაღაზია გადახდის სისტემით, ადმინ პანელით და real-time ანალიტიკით.</p>
-      <div class="project-tags">
-        <span class="project-tag">React</span>
-        <span class="project-tag">Node.js</span>
-        <span class="project-tag">Stripe</span>
-      </div>
-    </div>
-    <div class="project-card" onmousemove="tilt(event,this)" onmouseleave="resetTilt(this)">
-      <div class="project-top">
-        <span class="project-emoji">💬</span>
-        <span class="project-name">realtime-chat</span>
-      </div>
-      <p class="project-desc">WebSocket-ზე დაფუძნებული ჩატი ჯგუფური ოთახებით და ფაილების გაზიარებით.</p>
-      <div class="project-tags">
-        <span class="project-tag">Next.js</span>
-        <span class="project-tag">Socket.io</span>
-        <span class="project-tag">Redis</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="experience">
-  <div class="section-tag">// work_experience</div>
-  <div class="section-title">გამოცდილება</div>
-  <div class="exp-list">
-    <div class="exp-item">
-      <div class="exp-year">2023 → now</div>
-      <div>
-        <div class="exp-role">Senior Frontend Developer</div>
-        <div class="exp-company">~/TechStartup Georgia</div>
-      </div>
-    </div>
-    <div class="exp-item">
-      <div class="exp-year">2021 → 2023</div>
-      <div>
-        <div class="exp-role">Full-stack Developer</div>
-        <div class="exp-company">~/Digital Agency Tbilisi</div>
-      </div>
-    </div>
-    <div class="exp-item">
-      <div class="exp-year">2019 → 2021</div>
-      <div>
-        <div class="exp-role">Junior Developer</div>
-        <div class="exp-company">~/Freelance</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="contact">
-  <div class="section-tag">// get_in_touch</div>
-  <div class="section-title">დაკავშირება</div>
-  <div class="contact-code">
-    <span class="c-p">const</span> <span class="c-b">contact</span> <span class="c-d">=</span> {<br>
-    &nbsp;&nbsp;email: <span class="c-g">"gia@example.com"</span>,<br>
-    &nbsp;&nbsp;github: <span class="c-g">"github.com/geoshavi"</span>,<br>
-    &nbsp;&nbsp;status: <span class="c-g">"✅ open to work"</span>,<br>
-    &nbsp;&nbsp;response_time: <span class="c-o">"&lt; 24h"</span><br>
-    }
-  </div>
-  <div class="contact-links">
-    <a href="mailto:gia@example.com" class="contact-link">📧 email</a>
-    <a href="https://github.com/geoshavi" target="_blank" class="contact-link">🐙 github</a>
-    <a href="https://linkedin.com" target="_blank" class="contact-link">💼 linkedin</a>
-  </div>
+<section class="about">
+    <h2>ჩვენ შესახებ</h2>
+    <p>
+        Baby Pink Shop გთავაზობთ ხარისხიან საბავშვო ტანსაცმელს,
+        სათამაშოებს, აქსესუარებსა და საჩუქრებს.
+        ჩვენი მიზანია შევქმნათ უსაფრთხო და სასიამოვნო გარემო
+        ბავშვებისთვის და მშობლებისთვის.
+    </p>
 </section>
 
 <footer>
-  made with <span style="color:var(--red)">♥</span> &amp; ☕ by <span style="color:var(--green)">geoshavi</span> // 2025
+    © 2026 Baby Pink Shop | ყველა უფლება დაცულია
 </footer>
 
-<script>
-// CURSOR
-const cursor = document.getElementById('cursor');
-const ring = document.getElementById('cursor-ring');
-let mx = 0, my = 0;
-document.addEventListener('mousemove', e => {
-  mx = e.clientX; my = e.clientY;
-  cursor.style.left = mx + 'px';
-  cursor.style.top = my + 'px';
-  ring.style.left = mx + 'px';
-  ring.style.top = my + 'px';
-  spawnSpark(mx, my);
-});
-
-// SPARKS
-const sparkColors = ['#00ff88','#58a6ff','#bc8cff','#f0883e','#ffffff'];
-let lastSpark = 0;
-function spawnSpark(x, y) {
-  const now = Date.now();
-  if (now - lastSpark < 30) return;
-  lastSpark = now;
-  const s = document.createElement('div');
-  s.className = 'spark';
-  const color = sparkColors[Math.floor(Math.random() * sparkColors.length)];
-  const size = Math.random() * 5 + 2;
-  s.style.cssText = `left:${x}px;top:${y}px;width:${size}px;height:${size}px;background:${color};box-shadow:0 0 6px ${color};`;
-  document.body.appendChild(s);
-  const angle = Math.random() * Math.PI * 2;
-  const speed = Math.random() * 60 + 20;
-  const vx = Math.cos(angle) * speed;
-  const vy = Math.sin(angle) * speed;
-  let opacity = 1, px = x, py = y, t = 0;
-  function anim() {
-    t += 0.05;
-    px += vx * 0.05;
-    py += vy * 0.05 + t * 2;
-    opacity -= 0.04;
-    s.style.left = px + 'px';
-    s.style.top = py + 'px';
-    s.style.opacity = opacity;
-    if (opacity > 0) requestAnimationFrame(anim);
-    else s.remove();
-  }
-  requestAnimationFrame(anim);
-}
-
-// STAR BACKGROUND
-const canvas = document.getElementById('star-canvas');
-const ctx = canvas.getContext('2d');
-let W, H;
-function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
-resize();
-window.addEventListener('resize', resize);
-
-const stars = Array.from({length: 150}, () => ({
-  x: Math.random() * window.innerWidth,
-  y: Math.random() * window.innerHeight,
-  r: Math.random() * 1.2 + 0.2,
-  alpha: Math.random() * 0.6 + 0.1,
-  twinkleSpeed: Math.random() * 0.02 + 0.005,
-  twinkleOffset: Math.random() * Math.PI * 2,
-  color: Math.random() > 0.85 ? '#58a6ff' : Math.random() > 0.7 ? '#bc8cff' : '#ffffff'
-}));
-
-let frame = 0;
-function drawStars() {
-  ctx.clearRect(0, 0, W, H);
-  frame += 0.016;
-
-  // Grid
-  ctx.strokeStyle = '#ffffff03';
-  ctx.lineWidth = 1;
-  for (let x = 0; x < W; x += 70) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke(); }
-  for (let y = 0; y < H; y += 70) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
-
-  // Stars
-  stars.forEach(s => {
-    const twinkle = Math.sin(frame * s.twinkleSpeed * 60 + s.twinkleOffset) * 0.3 + 0.7;
-    ctx.beginPath();
-    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-    ctx.fillStyle = s.color + Math.floor(s.alpha * twinkle * 255).toString(16).padStart(2,'0');
-    ctx.fill();
-    if (s.r > 0.9) {
-      ctx.beginPath();
-      ctx.arc(s.x, s.y, s.r * 2.5, 0, Math.PI * 2);
-      ctx.fillStyle = s.color + '08';
-      ctx.fill();
-    }
-  });
-
-  // Mouse glow
-  const grad = ctx.createRadialGradient(mx, my, 0, mx, my, 180);
-  grad.addColorStop(0, 'rgba(0,255,136,0.05)');
-  grad.addColorStop(1, 'transparent');
-  ctx.fillStyle = grad;
-  ctx.fillRect(0, 0, W, H);
-
-  requestAnimationFrame(drawStars);
-}
-drawStars();
-
-// SLIDER
-let slideIdx = 0;
-const slides = document.querySelectorAll('.slide');
-const dots = document.querySelectorAll('.dot');
-function goSlide(i) {
-  slides[slideIdx].classList.remove('active');
-  dots[slideIdx].classList.remove('active');
-  slideIdx = i;
-  slides[slideIdx].classList.add('active');
-  dots[slideIdx].classList.add('active');
-}
-setInterval(() => goSlide((slideIdx + 1) % slides.length), 3500);
-
-// 3D TILT
-function tilt(e, card) {
-  const r = card.getBoundingClientRect();
-  const dx = (e.clientX - r.left - r.width/2) / (r.width/2);
-  const dy = (e.clientY - r.top - r.height/2) / (r.height/2);
-  card.style.transform = `perspective(600px) rotateY(${dx*8}deg) rotateX(${-dy*8}deg) translateZ(10px)`;
-  card.style.transition = 'transform 0.05s';
-  card.style.setProperty('--mx', ((e.clientX-r.left)/r.width*100).toFixed(1)+'%');
-  card.style.setProperty('--my', ((e.clientY-r.top)/r.height*100).toFixed(1)+'%');
-}
-function resetTilt(card) {
-  card.style.transform = 'perspective(600px) rotateY(0) rotateX(0) translateZ(0)';
-  card.style.transition = 'transform 0.4s ease';
-}
-
-// SCROLL REVEAL
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) { e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; }
-  });
-}, {threshold: 0.08});
-document.querySelectorAll('section, .hero').forEach(el => {
-  el.style.opacity='0'; el.style.transform='translateY(28px)';
-  el.style.transition='opacity 0.6s ease, transform 0.6s ease';
-  obs.observe(el);
-});
-</script>
 </body>
 </html>
