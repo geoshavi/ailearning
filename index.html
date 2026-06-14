@@ -19,7 +19,7 @@ body{
     position:fixed;
     width:100%;
     height:100%;
-    background:linear-gradient(120deg,#2b0000,#5c0000,#0b0b0f,#8b0000,#0b0b0f);
+    background:linear-gradient(120deg,#2b0000,#5c0000,#0b0b0f,#8b0000);
     background-size:400% 400%;
     animation:bg 10s infinite alternate;
     filter:blur(30px);
@@ -61,6 +61,7 @@ nav a{
     padding:10px 15px;
     border:1px solid #ffcc00;
     border-radius:20px;
+    transition:0.3s;
 }
 
 nav a:hover{
@@ -68,18 +69,10 @@ nav a:hover{
     color:black;
 }
 
-/* LOGIN */
-.loginBox{
+/* BUTTON */
+.centerBtn{
     text-align:center;
-    margin-top:30px;
-}
-
-input{
-    padding:10px;
-    margin:5px;
-    border:none;
-    border-radius:10px;
-    outline:none;
+    margin:20px;
 }
 
 button{
@@ -87,18 +80,25 @@ button{
     background:#ffcc00;
     border:none;
     border-radius:10px;
-    cursor:pointer;
     font-weight:bold;
+    cursor:pointer;
 }
 
-/* FORM */
+/* POSTS */
 .form{
     text-align:center;
     margin:20px;
     display:none;
 }
 
-/* POSTS */
+input{
+    padding:10px;
+    margin:5px;
+    border-radius:10px;
+    border:none;
+    outline:none;
+}
+
 .container{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
@@ -121,6 +121,35 @@ button{
 
 .card h3{
     color:#ffcc00;
+}
+
+/* POPUP */
+#popup{
+    display:none;
+    position:fixed;
+    top:0;left:0;
+    width:100%;height:100%;
+    background:rgba(0,0,0,0.7);
+    justify-content:center;
+    align-items:center;
+}
+
+.popupBox{
+    background:#111;
+    padding:25px;
+    border-radius:15px;
+    text-align:center;
+    width:280px;
+    box-shadow:0 0 20px #ffcc00;
+}
+
+.popupBox input{
+    width:90%;
+    margin:10px 0;
+}
+
+#msg{
+    margin-top:10px;
 }
 
 /* MOUSE EFFECT */
@@ -161,14 +190,26 @@ footer{
 <a href="#">ეკონომიკა</a>
 </nav>
 
-<!-- LOGIN -->
-<div class="loginBox" id="loginBox">
-    <h2>🔐 Admin Login</h2>
-    <input type="password" id="pass" placeholder="Password">
-    <button onclick="login()">Login</button>
+<!-- LOGIN BUTTON -->
+<div class="centerBtn">
+<button onclick="openLogin()">🔐 Admin Login</button>
 </div>
 
-<!-- POST FORM -->
+<!-- POPUP LOGIN -->
+<div id="popup">
+    <div class="popupBox">
+        <h2 style="color:#ffcc00;">Admin Login</h2>
+
+        <input type="password" id="pass" placeholder="Password">
+
+        <button onclick="login()">Login</button>
+        <button onclick="closeLogin()" style="background:none;color:white;">Close</button>
+
+        <p id="msg"></p>
+    </div>
+</div>
+
+<!-- FORM -->
 <div class="form" id="form">
     <input id="title" placeholder="სათაური">
     <input id="text" placeholder="ტექსტი">
@@ -180,37 +221,53 @@ footer{
 
 <div class="card">
 <h3>თბილისში ახალი პროექტები</h3>
-<p>ქალაქში ინფრასტრუქტურა აქტიურად ვითარდება...</p>
+<p>ქალაქში ინფრასტრუქტურა ვითარდება...</p>
 </div>
 
 <div class="card">
 <h3>სპორტი</h3>
-<p>საქართველოს ნაკრები მზადაა ახალი მატჩისთვის...</p>
+<p>ნაკრები ემზადება ახალ მატჩისთვის...</p>
 </div>
 
 <div class="card">
 <h3>ეკონომიკა</h3>
-<p>ბაზარზე ლარი სტაბილურობას ინარჩუნებს...</p>
+<p>ბაზარზე სტაბილურობა შეინიშნება...</p>
 </div>
 
 </div>
 
 <footer>
-© 2026 Khatia News | ყველა უფლება დაცულია
+© 2026 Khatia News
 </footer>
 
 <script>
 
-/* 🔐 LOGIN */
+/* 🔐 POPUP */
+function openLogin(){
+    document.getElementById("popup").style.display="flex";
+}
+
+function closeLogin(){
+    document.getElementById("popup").style.display="none";
+    document.getElementById("msg").innerText="";
+}
+
+/* LOGIN */
 function login(){
     let pass=document.getElementById("pass").value;
 
     if(pass==="admin123"){
-        document.getElementById("form").style.display="block";
-        document.getElementById("loginBox").style.display="none";
-        alert("Welcome Admin!");
+        document.getElementById("msg").style.color="lightgreen";
+        document.getElementById("msg").innerText="✔ Access Granted";
+
+        setTimeout(()=>{
+            closeLogin();
+            document.getElementById("form").style.display="block";
+        },1000);
+
     }else{
-        alert("Wrong Password!");
+        document.getElementById("msg").style.color="red";
+        document.getElementById("msg").innerText="❌ Wrong Password!";
     }
 }
 
