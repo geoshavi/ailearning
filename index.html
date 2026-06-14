@@ -1,217 +1,225 @@
 <!DOCTYPE html>
-<html lang="ka">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Baby Pink Shop</title>
+<title>NEON GAMING ZONE</title>
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,sans-serif;
-}
-
 body{
-    background:#fff5f8;
+    margin:0;
+    overflow-x:hidden;
+    font-family:Arial, sans-serif;
+    background:black;
+    color:white;
 }
 
+/* ===== BACKGROUND NEON GRADIENT ===== */
+.background{
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    background:linear-gradient(120deg,#0f0c29,#302b63,#24243e);
+    z-index:-3;
+    animation: bgMove 10s infinite alternate;
+}
+
+@keyframes bgMove{
+    0%{filter:hue-rotate(0deg);}
+    100%{filter:hue-rotate(90deg);}
+}
+
+/* ===== PARTICLES ===== */
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:-2;
+}
+
+/* ===== HEADER ===== */
 header{
-    background:linear-gradient(90deg,#ff8fb1,#ffb6c1);
-    color:white;
     text-align:center;
     padding:30px;
-}
-
-header h1{
     font-size:40px;
-}
-
-nav{
-    background:white;
-    padding:15px;
-    text-align:center;
-    box-shadow:0 2px 10px rgba(0,0,0,0.1);
-}
-
-nav a{
-    text-decoration:none;
-    color:#ff4f8b;
-    margin:0 15px;
     font-weight:bold;
+    color:#00f7ff;
+    text-shadow:0 0 20px #00f7ff;
 }
 
-.hero{
-    text-align:center;
-    padding:60px 20px;
+/* ===== SLIDER ===== */
+.slider{
+    width:80%;
+    margin:40px auto;
+    overflow:hidden;
+    border-radius:20px;
+    box-shadow:0 0 20px #00f7ff;
 }
 
-.hero h2{
-    color:#ff4f8b;
-    font-size:38px;
+.slides{
+    display:flex;
+    width:300%;
+    animation:slide 12s infinite;
 }
 
-.hero p{
-    margin-top:15px;
-    color:#555;
-    font-size:18px;
+.slides img{
+    width:100%;
 }
 
+@keyframes slide{
+    0%{transform:translateX(0);}
+    33%{transform:translateX(-100%);}
+    66%{transform:translateX(-200%);}
+    100%{transform:translateX(0);}
+}
+
+/* ===== BUTTON ===== */
 .btn{
     display:inline-block;
-    margin-top:20px;
-    background:#ff4f8b;
-    color:white;
     padding:15px 30px;
+    margin:20px;
+    background:#00f7ff;
+    color:black;
     border-radius:30px;
-    text-decoration:none;
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:0 0 15px #00f7ff;
 }
 
-.products{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:25px;
-    padding:50px;
+.btn:hover{
+    transform:scale(1.1);
+}
+
+/* ===== CARDS ===== */
+.cards{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:20px;
+    padding:40px;
 }
 
 .card{
-    background:white;
-    border-radius:20px;
-    overflow:hidden;
-    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    width:250px;
+    background:rgba(255,255,255,0.05);
+    border:1px solid #00f7ff;
+    border-radius:15px;
+    padding:15px;
+    text-align:center;
     transition:0.3s;
 }
 
 .card:hover{
     transform:translateY(-10px);
+    box-shadow:0 0 25px #00f7ff;
 }
 
-.card img{
-    width:100%;
-    height:250px;
-    object-fit:cover;
+/* ===== MOUSE TRAIL DOT ===== */
+.dot{
+    position:fixed;
+    width:10px;
+    height:10px;
+    background:#00f7ff;
+    border-radius:50%;
+    pointer-events:none;
+    box-shadow:0 0 10px #00f7ff;
 }
 
-.card h3{
-    padding:15px;
-    color:#ff4f8b;
-}
-
-.card p{
-    padding:0 15px 15px;
-    color:#666;
-}
-
-.price{
-    color:#ff4f8b;
-    font-size:22px;
-    font-weight:bold;
-    padding:0 15px 20px;
-}
-
-.about{
-    padding:60px;
-    text-align:center;
-}
-
-.about h2{
-    color:#ff4f8b;
-    margin-bottom:20px;
-}
-
-footer{
-    background:#ffb6c1;
-    color:white;
-    text-align:center;
-    padding:25px;
-}
-
-.product-link{
-    text-decoration:none;
-    color:#ff4f8b;
-}
 </style>
 </head>
+
 <body>
 
-<header>
-    <h1>🎀 Baby Pink Shop 🎀</h1>
-    <p>საბავშვო ტანსაცმელი, სათამაშოები და აქსესუარები</p>
-</header>
+<div class="background"></div>
+<canvas id="particles"></canvas>
 
-<nav>
-    <a href="#">მთავარი</a>
-    <a href="#">პროდუქტები</a>
-    <a href="#">ფასდაკლებები</a>
-    <a href="#">ჩვენ შესახებ</a>
-    <a href="#">კონტაქტი</a>
-</nav>
+<header>🔥 NEON GAMING ZONE 🔥</header>
 
-<section class="hero">
-    <h2>ყველაფერი თქვენი პატარებისთვის 💖</h2>
-    <p>უმაღლესი ხარისხის საბავშვო პროდუქცია საუკეთესო ფასებში</p>
-    <a href="#" class="btn">შეიძინე ახლავე</a>
-</section>
+<!-- MUSIC -->
+<audio id="music" loop>
+<source src="https://cdn.pixabay.com/download/audio/2022/10/25/audio_3c1b1d0a7d.mp3?filename=cyberpunk-ambient-121747.mp3">
+</audio>
 
-<section class="products">
+<div style="text-align:center;">
+<button class="btn" onclick="document.getElementById('music').play()">
+▶ Play Music
+</button>
+</div>
 
-    <!-- კაბა -->
-    <div class="card">
-        <a href="kaba.html">
-            <img src="https://images.unsplash.com/photo-1515488764276-beab7607c1e6" alt="ვარდისფერი კაბა">
-        </a>
+<!-- SLIDER -->
+<div class="slider">
+<div class="slides">
+<img src="https://images.unsplash.com/photo-1542751371-adc38448a05e">
+<img src="https://images.unsplash.com/photo-1552820728-8b83bb6b773f">
+<img src="https://images.unsplash.com/photo-1598550476439-6847785fcea6">
+</div>
+</div>
 
-        <h3>
-            <a href="kaba.html" class="product-link">
-                ვარდისფერი კაბა
-            </a>
-        </h3>
+<!-- CARDS -->
+<div class="cards">
+<div class="card">🎮 FPS Games</div>
+<div class="card">🏎 Racing</div>
+<div class="card">⚔ RPG Worlds</div>
+<div class="card">🌌 Cyberpunk Style</div>
+</div>
 
-        <p>რბილი და კომფორტული საბავშვო კაბა.</p>
-        <div class="price">$29</div>
-    </div>
+<script>
 
-    <!-- დათუნია -->
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1519238263530-99bdd11df2ea" alt="">
-        <h3>პლუშის დათუნია</h3>
-        <p>უსაყვარლესი რბილი სათამაშო.</p>
-        <div class="price">$19</div>
-    </div>
+/* ===== PARTICLES ===== */
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
 
-    <!-- ფეხსაცმელი -->
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef" alt="">
-        <h3>საბავშვო ფეხსაცმელი</h3>
-        <p>მოდური და კომფორტული ფეხსაცმელი.</p>
-        <div class="price">$39</div>
-    </div>
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-    <!-- სათამაშო -->
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9" alt="">
-        <h3>საბავშვო სათამაშო ნაკრები</h3>
-        <p>შემეცნებითი და გასართობი სათამაშოები.</p>
-        <div class="price">$24</div>
-    </div>
+let particles = [];
 
-</section>
+for(let i=0;i<80;i++){
+    particles.push({
+        x:Math.random()*canvas.width,
+        y:Math.random()*canvas.height,
+        r:Math.random()*3,
+        dx:(Math.random()-0.5)*2,
+        dy:(Math.random()-0.5)*2
+    });
+}
 
-<section class="about">
-    <h2>ჩვენ შესახებ</h2>
+function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
 
-    <p>
-        Baby Pink Shop გთავაზობთ ხარისხიან საბავშვო
-        ტანსაცმელს, სათამაშოებს, აქსესუარებსა და საჩუქრებს.
-        ჩვენი მიზანია შევქმნათ უსაფრთხო და სასიამოვნო გარემო
-        ბავშვებისთვის და მშობლებისთვის.
-    </p>
-</section>
+    ctx.fillStyle="#00f7ff";
 
-<footer>
-    © 2026 Baby Pink Shop | ყველა უფლება დაცულია
-</footer>
+    particles.forEach(p=>{
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fill();
+
+        p.x += p.dx;
+        p.y += p.dy;
+
+        if(p.x<0 || p.x>canvas.width) p.dx *= -1;
+        if(p.y<0 || p.y>canvas.height) p.dy *= -1;
+    });
+
+    requestAnimationFrame(draw);
+}
+
+draw();
+
+/* ===== MOUSE TRAIL ===== */
+document.addEventListener("mousemove",(e)=>{
+    let dot = document.createElement("div");
+    dot.className="dot";
+    dot.style.left = e.pageX+"px";
+    dot.style.top = e.pageY+"px";
+    document.body.appendChild(dot);
+
+    setTimeout(()=>dot.remove(),300);
+});
+
+</script>
 
 </body>
 </html>
